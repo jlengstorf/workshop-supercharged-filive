@@ -1,0 +1,10 @@
+/*
+ * Requires:
+ * - [`postcss-nested`](http://git.io/vUBoT) for nested selectors  
+ */
+
+.wrapper {
+  p {
+    color: blue;
+  }
+}

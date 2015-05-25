@@ -1,0 +1,13 @@
+/*
+ * Requires:
+ * - plugins from previous examples
+ * - [`postcss-simple-vars`](http://git.io/vUBKX) for Sass-style vars
+ */
+
+$exampleTextColor: #FF0000;
+
+.css-variables {
+  p {
+    color: $exampleTextColor;
+  }
+}

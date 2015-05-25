@@ -1,0 +1,373 @@
+/*
+ * # base.css
+ *
+ * These styles are for the demo app itself, and don't actually apply to the
+ * demos being presented.
+ */
+
+/*
+ * ## Set Layout Defaults
+ */
+* {
+  /* - Avoid padding and border blowouts */
+  box-sizing: border-box;
+
+  /* - Kill margins on all elements so we can control them explicitly */
+  margin: 0;
+}
+
+/*
+ * To give us a starting point for vertical rhythm, we're using Heydon
+ * Pickering's [Lobotomized Owl](http://bit.ly/1H7MXUD) selector. Read up on
+ * this, because it's very cool.
+ */
+*+* {
+  margin-top: $baseVerticalGrid;
+}
+
+/*
+ * ## Get Fancy with Backgrounds
+ *
+ * This background is needlessly complex. It's been done this way to
+ * demonstrate a couple key things:
+ *
+ * 1. [Color functions](http://bit.ly/1GysKGK) in CSS are rad
+ * 2. We can build complex patterns with pseudo-elements without cluttering the
+ *    DOM with non-semantic elements
+ */
+html {
+  background-color: color( $backgroundColor lightness(-8%) );
+  background-image: radial-gradient(
+    circle closest-side,
+    color( $backgroundColor lightness(-11%) ) 0%,
+    color( $backgroundColor lightness(-11%) ) 17%,
+    color( $backgroundColor lightness(-9%) ) 18%,
+    color( $backgroundColor lightness(-9%) ) 68%,
+    color( $backgroundColor lightness(-11%) ) 69%,
+    color( $backgroundColor lightness(-11%) ) 73%,
+    color( $backgroundColor lightness(-11%) alpha(0%) ) 74%,
+    color( $backgroundColor lightness(-11%) alpha(0%) ) 100%
+  );
+  background-attachment: fixed;
+  background-size: 50px 50px;
+  position: relative;
+
+  &:after {
+    background-color: transparent;
+    background-image: radial-gradient(
+      circle closest-side,
+      color( $backgroundColor lightness(-11%) ) 0%,
+      color( $backgroundColor lightness(-11%) ) 35%,
+      color( $backgroundColor lightness(-11%) alpha(0%) ) 36%,
+      color( $backgroundColor lightness(-11%) alpha(0%) ) 100%
+    );
+    background-attachment: fixed;
+    background-repeat: repeat;
+    background-size: 25px 25px;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: 2;
+  }
+}
+
+/*
+ * ## Define Major Blocks
+ *
+ * These blocks are the common components in the site.
+ */
+
+
+/*
+ * ### Use the body as a wrapper
+ *
+ * No need for useless wrapper divs when we can style the body directly, right?
+ */
+body {
+  background-color: $backgroundColor;
+  border-left: 1px solid color( $backgroundColor lightness(-20%) );
+  border-right: 1px solid color( $backgroundColor lightness(-20%) );
+  box-shadow: 0 0 10px color( $backgroundColor lightness(-15%) );
+  color: $textColor;
+  font-family: sans-serif;
+  margin: 0 auto;
+  max-width: 100%;
+  min-height: 100vh;
+  padding: $baseVerticalGrid calc( $baseVerticalGrid * 2 );
+  position: relative;
+  width: 800px;
+  z-index: 10;
+}
+
+
+/*
+ * ### Main header
+ *
+ * **NOTE:** We're going to use BEM-style classnames so it's easy to see the
+ * relationships between items on the page. For an easy-to-parse overview of
+ * BEM (because the [BEM site](https://en.bem.info/) is not easy to parse),
+ * see [BEM 101 on CSS-Tricks](https://css-tricks.com/bem-101/).
+ */
+.site-header {
+  @extend inverted-colors;
+  @extend full-width;
+  display: flex;
+  justify-content: space-between;
+  margin-top: calc( $baseVerticalGrid * -1 );
+  font-size: 14px;
+  line-height: $baseVerticalGrid;
+
+  /*
+   * Shortcut to create BEM-style element classnames. These aren't nested in
+   * the processed CSS, but it's easier to scan this than a long list of
+   * top-level classnames. Neat, huh?
+   */
+  &__name {
+    flex: 1;
+    margin: 0;
+    color: inherit;
+    font-weight: 900;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+}
+
+
+/*
+ * ### Site navigation menu
+ *
+ * Keepin' things nice and simple.
+ */
+.site-navigation {
+  list-style: none;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+
+  &__nav-item {
+    display: inline;
+    margin-left: 4px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    padding: 0 calc( $baseVerticalGrid * 0.5 );
+    color: inherit;
+    font-size: 12px;
+    font-weight: 100;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    /* This is *not* BEM-compliant. I should be fired. */
+    &.active {
+      background: color( $backgroundColor alpha(- 25%) );
+      color: $textColor;
+    }
+
+    &:hover,&:active,&:focus {
+      background: $backgroundColor;
+      color: $textColor;
+    }
+  }
+}
+
+
+/*
+ * ### Site footer
+ *
+ * Pass along some love and links.
+ */
+.site-footer {
+  @extend inverted-colors;
+  @extend full-width;
+  margin-top: calc( $baseVerticalGrid * 2 );
+  margin-bottom: calc( $baseVerticalGrid * -1 );
+
+  &__nav {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: .75em;
+  }
+
+  &__credit,&__links {
+    flex: 1;
+    margin: 0;
+
+    a {
+      color: inherit;
+    }
+  }
+
+  &__links {
+    text-align: right;
+  }
+}
+
+
+/*
+ * ### Define what example containers look like
+ *
+ * The example container has two flavors: plain and full-width. To avoid
+ * duplicated styles, we're using an extendable placeholder here.
+ *
+ * See `app/source/styles/includes/_extends.css` for more info.
+ */
+.example {
+  @extend example-container;
+}
+
+/* Some examples look better if they're full-width. */
+.example--wide {
+  @extend example-container;
+  @extend full-width;
+  border-left: 0;
+  border-right: 0;
+  padding-left: calc( $baseVerticalGrid * 2 );
+  padding-right: calc( $baseVerticalGrid * 2 );
+}
+
+/* For all examples, show the name of the example using a `rel` attribute. */
+.example,.example--wide {
+  &:before {
+    color: color( $backgroundColor lightness(-20%) );
+    content: 'Example: ' attr(data-name);
+    display: block;
+    font-size: 7px;
+    letter-spacing: 0.1em;
+    position: absolute;
+    text-transform: uppercase;
+    top: calc( $baseVerticalGrid * -0.5 );
+    left: 0;
+  }
+
+  /*
+   * Override some of the things Prism does to "help"; we can set our own
+   * margins, thankyouverymuch.
+   *
+   * Also tweak the default theme to match our site colors and border styles.
+   */
+  pre {
+    margin-top: $baseVerticalGrid;
+    margin-bottom: 0;
+    padding: $baseVerticalGrid;
+    background-color: color( $backgroundColor lightness(- 2%) );
+    border: 1px solid color( $backgroundColor lightness(- 4%) );
+  }
+}
+
+/* Keep the wide example title lined up with standard examples. */
+.example--wide:before {
+  left: calc( $baseVerticalGrid * 2 );
+}
+
+
+/*
+ * ### Define an example result/output display box
+ *
+ * When we're showing the results of some code, we'll use one of these blocks.
+ */
+.example-result {
+  @extend plain-background;
+
+  > pre {
+    margin-top: 0;
+  }
+}
+
+/* This version has a striped background — good for showing transparency. */
+.example-result--patterned {
+  @extend patterned-background;
+}
+
+/* For results inside a full-width example. */
+.example-result--full-width {
+  @extend full-width;
+  margin-top: calc( $baseVerticalGrid * -1 );
+}
+
+/* Shows the element's classes so it's easier to see what's happening. */
+.show-class-names>*:after {
+  @extend show-element-class-names;
+}
+
+
+/*
+ * ### Set up tabbed panels for source code
+ *
+ * We're doing a lot of examples that deal with processing source code. Tabs
+ * make it easy to show input and output without cluttering up our page.
+ */
+.code-toggle {
+  &__tablist {
+    list-style: none;
+    margin: 0;
+    padding: 0 calc( $baseVerticalGrid * 0.25 );
+    border-bottom: 1px solid color( $backgroundColor blackness(+ 10%) );
+  }
+
+  &__tab {
+    position: relative;
+    display: inline-block;
+    margin: 0 calc( $baseVerticalGrid * 0.25 ) -1px 0;
+    padding: calc( $baseVerticalGrid * 0.5 );
+    border: 1px solid color( $backgroundColor blackness(+ 10%) );
+    border-bottom: 0;
+    border-radius:
+      calc( $baseVerticalGrid * 0.25 )
+      calc( $baseVerticalGrid * 0.25 )
+      0 0;
+    cursor: pointer;
+
+    /* Style directly on ARIA attributes because #YOLO */
+    &[aria-selected="true"] {
+      background-color: $backgroundColor;
+      cursor: default;
+      font-weight: bold;
+    }
+  }
+
+  &__panel {
+    margin-top: calc( $baseVerticalGrid * 0.5 );
+
+    &[aria-hidden="true"] {
+      display: none;
+    }
+
+    pre {
+      margin-top: 0;
+    }
+  }
+}
+
+
+/*
+ * ### Style source code display
+ *
+ * Make sure the code doesn't side-scroll and add in our own vertical grid for
+ * visual consistency.
+ */
+pre {
+  max-height: 350px;
+  overflow-y: scroll;
+  line-height: $baseVerticalGrid;
+
+  code {
+    font-size: 13px;
+  }
+}
+
+/* Inlined `code` snippets should be bigger for better legibility in text. */
+code {
+  font-size: 18px;
+}

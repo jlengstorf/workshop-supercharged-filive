@@ -1,0 +1,51 @@
+/*
+ * Requires:
+ * - plugins from previous examples
+ * - [`gulp-cssnext`](http://git.io/vUB2I) to enable future CSS syntax
+ */
+
+/*
+ * - Define colors to keep them all in one place
+ */
+$mainColor: #33c;
+
+/*
+ * - Define measurements for the same reason
+ */
+$boxDimension: 100px;
+
+.color-blocks {
+  display: flex;
+  justify-content: space-between;
+}
+
+.color-block {
+  position: relative;
+  flex: 1 $boxDimension;
+  height: $boxDimension;
+  width: $boxDimension;
+  max-width: $boxDimension;
+  margin: 0;
+  border: 1px solid color( $mainColor lightness(- 50%) );
+
+  /* What we'll be changing */
+  &.default {
+    background-color: $mainColor;
+  }
+
+  &.alpha {
+    background-color: color( $mainColor alpha(- 50%) );
+  }
+
+  &.grayscale {
+    background-color: color( $mainColor saturation(- 100%) );
+  }
+
+  &.hue {
+    background-color: color( $mainColor hue(- 180deg) );
+  }
+
+  &.brighter {
+    background-color: color( $mainColor whiteness(+ 30%) saturation(+ 100%) );
+  }
+}

@@ -1,0 +1,20 @@
+/*
+ * Requires:
+ * - plugins from previous examples
+ * - [`postcss-simple-extend`](http://git.io/vUQes) for extendable classes
+ */
+
+@define-placeholder pay-attention-to-me {
+  background: yellow;
+  font-weight: bold;
+}
+
+.extends__paragraph--highlight {
+  @extend pay-attention-to-me;
+  border: 1px solid black;
+}
+
+.extends__paragraph>strong {
+  @extend pay-attention-to-me;
+  border-bottom: 2px solid red;
+}

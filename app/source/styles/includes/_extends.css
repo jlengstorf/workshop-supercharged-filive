@@ -1,0 +1,103 @@
+/*
+ * # _extends.css
+ *
+ * These elements are placeholders. They don't show up in the final CSS that's
+ * rendered. However, their styles can be quickly applied to other elements
+ * using the `@extend placeholder-name` syntax.
+ *
+ * This is all made possible by [`postcss-simple-extend`](http://git.io/vUQes).
+ */
+
+/*
+ * ## Inverted Colors
+ *
+ * Extend this class to create a light-on-dark color scheme.
+ */
+@define-placeholder inverted-colors {
+  background: color( $backgroundColor lightness(-80%) );
+  color: $backgroundColor;
+}
+
+/*
+ * ## Full Width Module
+ *
+ * Extend this class for a full-width div. This adds negative margin to
+ * compensate for the body's padding, a la Bootstrap container/row handling.
+ */
+@define-placeholder full-width {
+  margin-left: calc( $baseVerticalGrid * -2 );
+  margin-right: calc( $baseVerticalGrid * -2 );
+  padding: $baseVerticalGrid calc( $baseVerticalGrid * 2 );
+}
+
+
+/*
+ * ## Example Container
+ *
+ * Gives us an easy-to-spot container for examples.
+ */
+@define-placeholder example-container {
+  border: 1px dotted color( $backgroundColor lightness(-10%) );
+  margin-top: calc( $baseVerticalGrid * 2 );
+  margin-bottom: calc( $baseVerticalGrid * 2 );
+  padding: $baseVerticalGrid;
+  position: relative;
+}
+
+
+/*
+ * ## Example Results/Output
+ *
+ * These placeholders are for showing example output or results.
+ */
+
+/*
+ * ### Plain background
+ *
+ * Nice and simple output. Just put a border around it and call it good.
+ */
+@define-placeholder plain-background {
+  border: 1px solid #f1f1f1;
+  padding: $baseVerticalGrid;
+}
+
+
+/*
+ * ### Patterned background
+ *
+ * Adds a diagonally striped background to an element. This is ideal for
+ * examples that deal with transparency.
+ */
+@define-placeholder patterned-background {
+  background: linear-gradient(
+    45deg,
+    #f1f1f1 0%,
+    #f1f1f1 25%,
+    #fff 26%,
+    #fff 50%,
+    #f1f1f1 51%,
+    #f1f1f1 75%,
+    #fff 76%,
+    #fff 100%
+  );
+  background-size: 30px 30px;
+  border: 1px solid #f1f1f1;
+  padding: $baseVerticalGrid;
+}
+
+
+/*
+ * ### Show the classes applied to the element
+ *
+ * To make it easier to see what's happening in example output, we can show the
+ * classes applied to an element below it.
+ *
+ * **NOTE:** This can only be extended by pseudo-elements or it won't work!
+ */
+@define-placeholder show-element-class-names {
+  content: attr(class);
+  position: absolute;
+  top: 100%;
+  font-size: 10px;
+  line-height: 2;
+}

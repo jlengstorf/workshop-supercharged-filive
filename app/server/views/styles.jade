@@ -1,0 +1,251 @@
+extends ../layouts/default
+
+block title
+  title CSS Post-Processing and Compression | #{title}
+
+block content
+  h1 CSS Post-Processing and Compression
+  p.
+    Writing powerful, maintainable stylesheets is tricky if we're not careful.
+  p.
+    Working on stylesheets in a team is even trickier.
+  p.
+    With Gulp, we can plug in several excellent tools for CSS development,
+    which help us automate some of the more cumbersome tasks, including adding
+    vendor prefixes, compressing output, adding high-res images where
+    appropriate, and more.
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Nested Selectors";
+  - var name = 'nested';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      Nested selectors (made popular by CSS preprocessors like LESS and Sass)
+      add better legibility and a logical way to group related items.
+    p Here's the result:
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[0], 'scss', 'false')
+        include ../../source/styles/examples/nested-selectors.css
+      +tabbedBoxPanel(name, labels[1], 'css')
+        include ../../public/css/examples/nested-selectors.css
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Variables";
+  - var name = 'variables';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      Variables allow us to set common values (like colors) in one place,
+      which makes future maintenance a one-line change instead of a grand
+      adventure into a tangle of stylesheets.
+    p.
+      <a href="http://www.w3.org/TR/css-variables/">CSS-spec variables</a>
+      are kind of gnarly, though:
+    pre.language-scss
+      code.
+        /* All variables have to be declared within :root to work. */
+        :root {
+          --color: #FFFFFF;
+        }
+
+        /* To use a variable, we have to wrap it in var(). */
+        .foo {
+          background-color: var( --color );
+        }
+    p.
+      To make that a little easier to deal with, we'll be using Sass-style
+      variables in our stylesheets thanks to <code>postcss-simple-vars</code>.
+    p Here's the result:
+
+    .example-result
+      .css-variables
+        p My color was set with a variable!
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[0], 'scss', 'false')
+        include ../../source/styles/examples/variables.css
+      +tabbedBoxPanel(name, labels[1], 'css')
+        include ../../public/css/examples/variables.css
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Automatic Vendor Prefixes";
+  - var name = 'autoprefixer';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      Autoprefixer is straight-up magic. Never worry about vendor prefixes
+      again while we code.
+
+    .vendor-prefixes.example-result
+      .vendor-prefixes__spinner
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[0], 'scss', 'false')
+        include ../../source/styles/examples/autoprefix.css
+      +tabbedBoxPanel(name, labels[1], 'css')
+        include ../../public/css/examples/autoprefix.css
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Color Functions";
+  - var name = 'color';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      Using #[code color()] functions, we can modify colors quickly and easily.
+
+    .color-blocks.example-result--patterned.show-class-names
+      .color-block.default
+      .color-block.alpha
+      .color-block.grayscale
+      .color-block.hue
+      .color-block.brighter
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[0], 'scss', 'false')
+        include ../../source/styles/examples/color-functions.css
+      +tabbedBoxPanel(name, labels[1], 'css')
+        include ../../public/css/examples/color-functions.css
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Retina Background Display";
+  - var name = 'retina';
+
+  .example--wide(data-name=title)
+    .big-background.example-result--full-width
+      h2= title
+
+      p.
+        With #[code postcss-at2x] we can automatically add #[code @2x] versions
+        of our CSS background images.
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[0], 'scss', 'false')
+        include ../../source/styles/examples/retina-background-display.css
+      +tabbedBoxPanel(name, labels[1], 'css')
+        include ../../public/css/examples/retina-background-display.css
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Custom Selectors";
+  - var name = 'custom-selectors';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      Custom selectors allow a shortcut for defining groups of selectors under
+      a single reference for quickly defining new properties.
+    p Here's the result:
+
+    .example-result.custom-selector
+      h3 I'm a Heading
+      p This paragraph is right after a heading.
+        a(href="#") And a link!
+      p This paragraph is not.
+      h4 I'm a Smaller Heading
+      p This is another paragraph.
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[0], 'scss', 'false')
+        include ../../source/styles/examples/custom-selectors.css
+      +tabbedBoxPanel(name, labels[1], 'css')
+        include ../../public/css/examples/custom-selectors.css
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Extendable Classes";
+  - var name = 'extendable';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      An extendable class is a placeholder that defines reusable styles.
+    p.
+      They aren't rendered in the final CSS, and only show up when they're
+      extended by a real selector.
+    p Here's the result:
+
+    .example-result--patterned.extends
+      .extends__paragraph This is some text.
+      .extends__paragraph--highlight This is some really important text.
+      .extends__paragraph This is some text.
+        strong This text is bold.
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[0], 'scss', 'false')
+        include ../../source/styles/examples/extends.css
+      +tabbedBoxPanel(name, labels[1], 'css')
+        include ../../public/css/examples/extends.css
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Mixins";
+  - var name = 'mixins';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      Mixins are a way to create a reusable block of CSS that accepts
+      variable input.
+    p.
+      PostCSS mixins are even more powerful than Sass mixins because they
+      allow for JavaScript-based mixins — giving us a <em>lot</em> more power.
+    p Here's the result:
+
+    .example-result--patterned.mixins
+      .icon.icon--twitter
+      .icon.icon--facebook
+      .icon.icon--gplus
+      .icon.icon--instagram
+      .icon.icon--youtube
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[0], 'scss', 'false')
+        include ../../source/styles/examples/mixins.css
+      +tabbedBoxPanel(name, labels[1], 'css')
+        include ../../public/css/examples/mixins.css
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "CSS Optimization";
+  - var name = 'optimization';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      With cssnano, many optimizations to our CSS, like stripping comments,
+      removing white space, and choosing the shortest color name are done
+      automatically to keep file sizes small.
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[0], 'scss', 'false')
+        include ../../source/styles/examples/compressed.css
+      +tabbedBoxPanel(name, labels[1], 'css')
+        include ../../public/css/examples/compressed.css

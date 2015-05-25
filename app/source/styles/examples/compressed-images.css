@@ -1,0 +1,24 @@
+.image-holder {
+  display: flex;
+  justify-content: space-around;
+}
+
+.image {
+  flex: 1 250px;
+  position: relative;
+  max-width: 250px;
+  max-height: 250px;
+  margin-top: 0;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.image:after {
+  content: 'File Size: ' attr(data-size);
+  left: 0;
+  width: 100%;
+  text-align: center
+}

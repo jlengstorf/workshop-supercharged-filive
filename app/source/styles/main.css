@@ -1,0 +1,58 @@
+/*
+ * # main.css
+ *
+ * This file contains references to all our component stylesheets. Using
+ * PostCSS, the `@import`-ed stylesheets will be inlined and processed into a
+ * single, minified stylesheet for production.
+ *
+ * TODO: Break these out into components
+ */
+
+
+/*
+ * ## Variables
+ *
+ * Requires `postcss-simple-vars`
+ */
+
+/*
+ * - Colors
+ */
+$backgroundColor: #fafafc;
+$textColor: #333333;
+
+/*
+ * - Measurements
+ */
+$baseVerticalGrid: 20px;
+
+/*
+ * - Custom selectors
+ */
+@custom-selector --heading h1,h2,h3,h4,h5,h6;
+
+
+/*
+ * ## Include Required Files
+ *
+ * These external files are all included inline to help us stay organized
+ * without requiring lots of extra HTTP requests.
+ */
+
+/*
+ * - Placeholder selectors to give us extendable styles.
+ */
+@import "includes/_extends.css";
+
+/*
+ * - Basic demo layout to make the demo site look less-than-terrible
+ */
+@import "base.css";
+
+/*
+ * - Example styles
+ *
+ *   - To avoid a bunch of extra imports, we're shortcutting with the `glob`
+ *     option from `postcss-import`.
+ */
+@import "examples/*.css";

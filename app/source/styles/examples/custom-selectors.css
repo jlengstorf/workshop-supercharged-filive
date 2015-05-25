@@ -1,0 +1,32 @@
+/*
+ * Requires:
+ * - plugins from previous examples
+ * - [`gulp-cssnext`](http://git.io/vUB2I) to enable future CSS syntax
+ */
+
+/*
+ * Group all headings together for quick reference.
+ */
+@custom-selector --heading h1,h2,h3,h4,h5,h6;
+
+/*
+ * Add a shortcut for applying active styles that are keyboard-friendly.
+ */
+@custom-selector :--link-on :active, :hover, :focus;
+
+.custom-selector {
+  --heading {
+    color: red;
+  }
+
+  --heading+p {
+    background: yellow;
+  }
+
+  a:--link-on {
+    background: red;
+    color: white;
+    outline: none;
+    text-decoration: none;
+  }
+}

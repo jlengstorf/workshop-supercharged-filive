@@ -1,0 +1,33 @@
+/*
+ * Requires:
+ * - plugins from previous examples
+ * - [`gulp-cssnano`](http://git.io/vUBVI) for optimized CSS output
+ */
+
+/* color values are converted to the shortest available declaration */
+$textColor: #FF0000;
+
+.compressed {
+  position: relative;
+  /* z-index values are rebased to be smaller */
+  z-index: 10;
+
+  p {
+    position: relative;
+    color: $textColor;
+    /* font-weight is converted to the shortest available syntax */
+    font-weight: normal;
+    z-index: 100;
+  }
+}
+
+/*
+ * Empty rules are discarded.
+ */
+@media screen and (min-width: 400px) {
+  .compressed {
+    p {
+      /* } TODO: Add styles for larger screens */
+    }
+  }
+}

@@ -1,0 +1,23 @@
+/*
+ * Requires:
+ * - plugins from previous examples
+ * - [`gulp-cssnext`](http://git.io/vUB2I) to enable future CSS syntax
+ */
+
+.vendor-prefixes {
+  padding: 30px;
+
+  &__spinner {
+    width: 100px;
+    height: 100px;
+    margin: 10px auto;
+    background: red;
+    border: 4px solid black;
+    animation: 10s spinme infinite linear;
+  }
+}
+
+@keyframes spinme {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

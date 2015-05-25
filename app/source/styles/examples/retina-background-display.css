@@ -1,0 +1,20 @@
+/*
+ * Requires:
+ * - plugins from previous examples
+ * - [`postcss-at2x`](http://git.io/vUHZs) for high-density backgrounds
+ */
+
+.big-background {
+  min-height: 450px;
+  /*
+   * Using the `at-2x` keyword automatically creates a high-density media 
+   * query and references the `@2x` version of the image.
+   */
+  background-image: url(/images/retina-background-display.jpg) at-2x;
+  background-size: cover;
+
+  h2,p {
+    color: #fff;
+    text-shadow: 1px 1px 0 #333;
+  }
+}
