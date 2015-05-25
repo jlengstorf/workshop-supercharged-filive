@@ -17,9 +17,181 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "README.md",
         "targetPath": "index",
         "pageTitle": "index",
-        "title": "index"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Supercharge Your Front-End Workflow",
+            "slug": "supercharge-your-front-end-workflow",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Quick Start",
+                "slug": "quick-start"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "What You&#39;ll Learn",
+                "slug": "what-you39ll-learn"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Requirements",
+                "slug": "requirements"
+              },
+              "depth": 2,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Full List of Node Packages Used in This Workshop",
+                    "slug": "full-list-of-node-packages-used-in-this-workshop"
+                  },
+                  "depth": 3,
+                  "children": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Production Dependencies",
+                        "slug": "production-dependencies"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Development Dependencies",
+                        "slug": "development-dependencies"
+                      },
+                      "depth": 4
+                    }
+                  ]
+                }
+              ]
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Installation",
+                "slug": "installation"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Credits",
+                "slug": "credits"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "License",
+                "slug": "license"
+              },
+              "depth": 2
+            }
+          ]
+        },
+        "title": "Supercharge Your Front-End Workflow"
       },
-      "depth": 1
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Quick Start",
+            "slug": "quick-start"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "What You&#39;ll Learn",
+            "slug": "what-you39ll-learn"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Requirements",
+            "slug": "requirements"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Full List of Node Packages Used in This Workshop",
+                "slug": "full-list-of-node-packages-used-in-this-workshop"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Production Dependencies",
+                    "slug": "production-dependencies"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Development Dependencies",
+                    "slug": "development-dependencies"
+                  },
+                  "depth": 4
+                }
+              ]
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Installation",
+            "slug": "installation"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Credits",
+            "slug": "credits"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "License",
+            "slug": "license"
+          },
+          "depth": 2
+        }
+      ]
     }, {
       "type": "folder",
       "data": {
@@ -44,9 +216,105 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "app/index.js",
             "targetPath": "app/index",
             "pageTitle": "app/index",
-            "title": "index"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "index.js",
+                "slug": "indexjs",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Load Required Modules",
+                    "slug": "load-required-modules"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Set App Variables",
+                    "slug": "set-app-variables"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Create Routing",
+                    "slug": "create-routing"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Add Middleware",
+                    "slug": "add-middleware"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Start the Server",
+                    "slug": "start-the-server"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
+            "title": "index.js"
           },
-          "depth": 2
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Load Required Modules",
+                "slug": "load-required-modules"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Set App Variables",
+                "slug": "set-app-variables"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Create Routing",
+                "slug": "create-routing"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Add Middleware",
+                "slug": "add-middleware"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Start the Server",
+                "slug": "start-the-server"
+              },
+              "depth": 2
+            }
+          ]
         }, {
           "type": "folder",
           "data": {
@@ -79,9 +347,20 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "projectPath": "app/server/layouts/default.jade",
                     "targetPath": "app/server/layouts/default",
                     "pageTitle": "app/server/layouts/default",
-                    "title": "default"
+                    "firstHeader": {
+                      "type": "heading",
+                      "data": {
+                        "level": 1,
+                        "title": "default.jade",
+                        "slug": "defaultjade",
+                        "isFileHeader": true
+                      },
+                      "depth": 1
+                    },
+                    "title": "default.jade"
                   },
-                  "depth": 4
+                  "depth": 4,
+                  "outline": []
                 }
               ]
             }, {
@@ -108,9 +387,20 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "projectPath": "app/server/mixins/tabbed-box.jade",
                     "targetPath": "app/server/mixins/tabbed-box",
                     "pageTitle": "app/server/mixins/tabbed-box",
-                    "title": "tabbed-box"
+                    "firstHeader": {
+                      "type": "heading",
+                      "data": {
+                        "level": 1,
+                        "title": "Jade Mixins",
+                        "slug": "jade-mixins",
+                        "isFileHeader": true
+                      },
+                      "depth": 1
+                    },
+                    "title": "Jade Mixins"
                   },
-                  "depth": 4
+                  "depth": 4,
+                  "outline": []
                 }
               ]
             }, {
@@ -137,9 +427,20 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "projectPath": "app/server/partials/_footer.jade",
                     "targetPath": "app/server/partials/_footer",
                     "pageTitle": "app/server/partials/_footer",
-                    "title": "_footer"
+                    "firstHeader": {
+                      "type": "heading",
+                      "data": {
+                        "level": 1,
+                        "title": "_footer.jade",
+                        "slug": "-footerjade",
+                        "isFileHeader": true
+                      },
+                      "depth": 1
+                    },
+                    "title": "_footer.jade"
                   },
-                  "depth": 4
+                  "depth": 4,
+                  "outline": []
                 }, {
                   "type": "file",
                   "data": {
@@ -156,9 +457,20 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "projectPath": "app/server/partials/_header.jade",
                     "targetPath": "app/server/partials/_header",
                     "pageTitle": "app/server/partials/_header",
-                    "title": "_header"
+                    "firstHeader": {
+                      "type": "heading",
+                      "data": {
+                        "level": 1,
+                        "title": "_header.jade",
+                        "slug": "-headerjade",
+                        "isFileHeader": true
+                      },
+                      "depth": 1
+                    },
+                    "title": "_header.jade"
                   },
-                  "depth": 4
+                  "depth": 4,
+                  "outline": []
                 }
               ]
             }, {
@@ -185,9 +497,20 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "projectPath": "app/server/views/automation.jade",
                     "targetPath": "app/server/views/automation",
                     "pageTitle": "app/server/views/automation",
-                    "title": "automation"
+                    "firstHeader": {
+                      "type": "heading",
+                      "data": {
+                        "level": 1,
+                        "title": "automation.jade",
+                        "slug": "automationjade",
+                        "isFileHeader": true
+                      },
+                      "depth": 1
+                    },
+                    "title": "automation.jade"
                   },
-                  "depth": 4
+                  "depth": 4,
+                  "outline": []
                 }, {
                   "type": "file",
                   "data": {
@@ -206,7 +529,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "pageTitle": "app/server/views/images",
                     "title": "images"
                   },
-                  "depth": 4
+                  "depth": 4,
+                  "outline": []
                 }, {
                   "type": "file",
                   "data": {
@@ -225,7 +549,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "pageTitle": "app/server/views/index",
                     "title": "index"
                   },
-                  "depth": 4
+                  "depth": 4,
+                  "outline": []
                 }, {
                   "type": "file",
                   "data": {
@@ -244,7 +569,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "pageTitle": "app/server/views/scripts",
                     "title": "scripts"
                   },
-                  "depth": 4
+                  "depth": 4,
+                  "outline": []
                 }, {
                   "type": "file",
                   "data": {
@@ -263,7 +589,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "pageTitle": "app/server/views/styles",
                     "title": "styles"
                   },
-                  "depth": 4
+                  "depth": 4,
+                  "outline": []
                 }
               ]
             }
@@ -310,7 +637,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/scripts/examples/concatenation1",
                         "title": "concatenation1"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -329,7 +657,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/scripts/examples/concatenation2",
                         "title": "concatenation2"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -348,7 +677,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/scripts/examples/esnext",
                         "title": "esnext"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -367,7 +697,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/scripts/examples/linting",
                         "title": "linting"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -386,7 +717,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/scripts/examples/minification",
                         "title": "minification"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -405,7 +737,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/scripts/examples/style-guide",
                         "title": "style-guide"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }
                   ]
                 }, {
@@ -424,9 +757,95 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "projectPath": "app/source/scripts/main.js",
                     "targetPath": "app/source/scripts/main",
                     "pageTitle": "app/source/scripts/main",
-                    "title": "main"
+                    "firstHeader": {
+                      "type": "heading",
+                      "data": {
+                        "level": 1,
+                        "title": "main.js",
+                        "slug": "mainjs",
+                        "isFileHeader": true
+                      },
+                      "depth": 1,
+                      "children": [
+                        {
+                          "type": "heading",
+                          "data": {
+                            "level": 2,
+                            "title": "Add an event listener to handle the code view tab boxes",
+                            "slug": "add-an-event-listener-to-handle-the-code-view-tab-boxes"
+                          },
+                          "depth": 2,
+                          "children": [
+                            {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Ensure the clicked element was a tab",
+                                "slug": "ensure-the-clicked-element-was-a-tab"
+                              },
+                              "depth": 3
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Find the container",
+                                "slug": "find-the-container"
+                              },
+                              "depth": 3
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Change the tab and panel states",
+                                "slug": "change-the-tab-and-panel-states"
+                              },
+                              "depth": 3
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "title": "main.js"
                   },
-                  "depth": 4
+                  "depth": 4,
+                  "outline": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 2,
+                        "title": "Add an event listener to handle the code view tab boxes",
+                        "slug": "add-an-event-listener-to-handle-the-code-view-tab-boxes"
+                      },
+                      "depth": 2,
+                      "children": [
+                        {
+                          "type": "heading",
+                          "data": {
+                            "level": 3,
+                            "title": "Ensure the clicked element was a tab",
+                            "slug": "ensure-the-clicked-element-was-a-tab"
+                          },
+                          "depth": 3
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 3,
+                            "title": "Find the container",
+                            "slug": "find-the-container"
+                          },
+                          "depth": 3
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 3,
+                            "title": "Change the tab and panel states",
+                            "slug": "change-the-tab-and-panel-states"
+                          },
+                          "depth": 3
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }, {
@@ -452,9 +871,207 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "projectPath": "app/source/styles/base.css",
                     "targetPath": "app/source/styles/base",
                     "pageTitle": "app/source/styles/base",
-                    "title": "base"
+                    "firstHeader": {
+                      "type": "heading",
+                      "data": {
+                        "level": 1,
+                        "title": "base.css",
+                        "slug": "basecss",
+                        "isFileHeader": true
+                      },
+                      "depth": 1,
+                      "children": [
+                        {
+                          "type": "heading",
+                          "data": {
+                            "level": 2,
+                            "title": "Set Layout Defaults",
+                            "slug": "set-layout-defaults"
+                          },
+                          "depth": 2
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 2,
+                            "title": "Get Fancy with Backgrounds",
+                            "slug": "get-fancy-with-backgrounds"
+                          },
+                          "depth": 2
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 2,
+                            "title": "Define Major Blocks",
+                            "slug": "define-major-blocks"
+                          },
+                          "depth": 2,
+                          "children": [
+                            {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Use the body as a wrapper",
+                                "slug": "use-the-body-as-a-wrapper"
+                              },
+                              "depth": 3
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Main header",
+                                "slug": "main-header"
+                              },
+                              "depth": 3
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Site navigation menu",
+                                "slug": "site-navigation-menu"
+                              },
+                              "depth": 3
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Site footer",
+                                "slug": "site-footer"
+                              },
+                              "depth": 3
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Define what example containers look like",
+                                "slug": "define-what-example-containers-look-like"
+                              },
+                              "depth": 3
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Define an example result/output display box",
+                                "slug": "define-an-example-resultoutput-display-box"
+                              },
+                              "depth": 3
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Set up tabbed panels for source code",
+                                "slug": "set-up-tabbed-panels-for-source-code"
+                              },
+                              "depth": 3
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Style source code display",
+                                "slug": "style-source-code-display"
+                              },
+                              "depth": 3
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "title": "base.css"
                   },
-                  "depth": 4
+                  "depth": 4,
+                  "outline": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 2,
+                        "title": "Set Layout Defaults",
+                        "slug": "set-layout-defaults"
+                      },
+                      "depth": 2
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 2,
+                        "title": "Get Fancy with Backgrounds",
+                        "slug": "get-fancy-with-backgrounds"
+                      },
+                      "depth": 2
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 2,
+                        "title": "Define Major Blocks",
+                        "slug": "define-major-blocks"
+                      },
+                      "depth": 2,
+                      "children": [
+                        {
+                          "type": "heading",
+                          "data": {
+                            "level": 3,
+                            "title": "Use the body as a wrapper",
+                            "slug": "use-the-body-as-a-wrapper"
+                          },
+                          "depth": 3
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 3,
+                            "title": "Main header",
+                            "slug": "main-header"
+                          },
+                          "depth": 3
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 3,
+                            "title": "Site navigation menu",
+                            "slug": "site-navigation-menu"
+                          },
+                          "depth": 3
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 3,
+                            "title": "Site footer",
+                            "slug": "site-footer"
+                          },
+                          "depth": 3
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 3,
+                            "title": "Define what example containers look like",
+                            "slug": "define-what-example-containers-look-like"
+                          },
+                          "depth": 3
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 3,
+                            "title": "Define an example result/output display box",
+                            "slug": "define-an-example-resultoutput-display-box"
+                          },
+                          "depth": 3
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 3,
+                            "title": "Set up tabbed panels for source code",
+                            "slug": "set-up-tabbed-panels-for-source-code"
+                          },
+                          "depth": 3
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 3,
+                            "title": "Style source code display",
+                            "slug": "style-source-code-display"
+                          },
+                          "depth": 3
+                        }
+                      ]
+                    }
+                  ]
                 }, {
                   "type": "folder",
                   "data": {
@@ -480,7 +1097,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/styles/examples/autoprefix",
                         "title": "autoprefix"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -498,7 +1116,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/styles/examples/color-functions",
                         "title": "color-functions"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -516,7 +1135,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/styles/examples/compressed",
                         "title": "compressed"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -534,7 +1154,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/styles/examples/compressed-images",
                         "title": "compressed-images"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -552,7 +1173,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/styles/examples/custom-selectors",
                         "title": "custom-selectors"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -570,7 +1192,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/styles/examples/extends",
                         "title": "extends"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -588,7 +1211,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/styles/examples/mixins",
                         "title": "mixins"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -606,7 +1230,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/styles/examples/nested-selectors",
                         "title": "nested-selectors"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -624,7 +1249,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/styles/examples/retina-background-display",
                         "title": "retina-background-display"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }, {
                       "type": "file",
                       "data": {
@@ -642,7 +1268,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "pageTitle": "app/source/styles/examples/variables",
                         "title": "variables"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": []
                     }
                   ]
                 }, {
@@ -668,9 +1295,143 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "projectPath": "app/source/styles/includes/_extends.css",
                         "targetPath": "app/source/styles/includes/_extends",
                         "pageTitle": "app/source/styles/includes/_extends",
-                        "title": "_extends"
+                        "firstHeader": {
+                          "type": "heading",
+                          "data": {
+                            "level": 1,
+                            "title": "_extends.css",
+                            "slug": "-extendscss",
+                            "isFileHeader": true
+                          },
+                          "depth": 1,
+                          "children": [
+                            {
+                              "type": "heading",
+                              "data": {
+                                "level": 2,
+                                "title": "Inverted Colors",
+                                "slug": "inverted-colors"
+                              },
+                              "depth": 2
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 2,
+                                "title": "Full Width Module",
+                                "slug": "full-width-module"
+                              },
+                              "depth": 2
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 2,
+                                "title": "Example Container",
+                                "slug": "example-container"
+                              },
+                              "depth": 2
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 2,
+                                "title": "Example Results/Output",
+                                "slug": "example-resultsoutput"
+                              },
+                              "depth": 2,
+                              "children": [
+                                {
+                                  "type": "heading",
+                                  "data": {
+                                    "level": 3,
+                                    "title": "Plain background",
+                                    "slug": "plain-background"
+                                  },
+                                  "depth": 3
+                                }, {
+                                  "type": "heading",
+                                  "data": {
+                                    "level": 3,
+                                    "title": "Patterned background",
+                                    "slug": "patterned-background"
+                                  },
+                                  "depth": 3
+                                }, {
+                                  "type": "heading",
+                                  "data": {
+                                    "level": 3,
+                                    "title": "Show the classes applied to the element",
+                                    "slug": "show-the-classes-applied-to-the-element"
+                                  },
+                                  "depth": 3
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "title": "_extends.css"
                       },
-                      "depth": 5
+                      "depth": 5,
+                      "outline": [
+                        {
+                          "type": "heading",
+                          "data": {
+                            "level": 2,
+                            "title": "Inverted Colors",
+                            "slug": "inverted-colors"
+                          },
+                          "depth": 2
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 2,
+                            "title": "Full Width Module",
+                            "slug": "full-width-module"
+                          },
+                          "depth": 2
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 2,
+                            "title": "Example Container",
+                            "slug": "example-container"
+                          },
+                          "depth": 2
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 2,
+                            "title": "Example Results/Output",
+                            "slug": "example-resultsoutput"
+                          },
+                          "depth": 2,
+                          "children": [
+                            {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Plain background",
+                                "slug": "plain-background"
+                              },
+                              "depth": 3
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Patterned background",
+                                "slug": "patterned-background"
+                              },
+                              "depth": 3
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
+                                "title": "Show the classes applied to the element",
+                                "slug": "show-the-classes-applied-to-the-element"
+                              },
+                              "depth": 3
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }, {
@@ -688,9 +1449,57 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "projectPath": "app/source/styles/main.css",
                     "targetPath": "app/source/styles/main",
                     "pageTitle": "app/source/styles/main",
-                    "title": "main"
+                    "firstHeader": {
+                      "type": "heading",
+                      "data": {
+                        "level": 1,
+                        "title": "main.css",
+                        "slug": "maincss",
+                        "isFileHeader": true
+                      },
+                      "depth": 1,
+                      "children": [
+                        {
+                          "type": "heading",
+                          "data": {
+                            "level": 2,
+                            "title": "Variables",
+                            "slug": "variables"
+                          },
+                          "depth": 2
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 2,
+                            "title": "Include Required Files",
+                            "slug": "include-required-files"
+                          },
+                          "depth": 2
+                        }
+                      ]
+                    },
+                    "title": "main.css"
                   },
-                  "depth": 4
+                  "depth": 4,
+                  "outline": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 2,
+                        "title": "Variables",
+                        "slug": "variables"
+                      },
+                      "depth": 2
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 2,
+                        "title": "Include Required Files",
+                        "slug": "include-required-files"
+                      },
+                      "depth": 2
+                    }
+                  ]
                 }
               ]
             }
@@ -712,7 +1521,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "pageTitle": "bower",
         "title": "bower"
       },
-      "depth": 1
+      "depth": 1,
+      "outline": []
     }, {
       "type": "file",
       "data": {
@@ -729,9 +1539,224 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "gulpfile.js",
         "targetPath": "gulpfile",
         "pageTitle": "gulpfile",
-        "title": "gulpfile"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "gulpfile.js",
+            "slug": "gulpfilejs",
+            "isFileHeader": true
+          },
+          "depth": 1
+        },
+        "title": "gulpfile.js"
       },
-      "depth": 1
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Set Up and Configuration",
+            "slug": "set-up-and-configuration"
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Automatically load Gulp plugins",
+                "slug": "automatically-load-gulp-plugins"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Define filepaths",
+                "slug": "define-filepaths"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Create reusable Gulp pipes for shared functionality",
+                "slug": "create-reusable-gulp-pipes-for-shared-functionality"
+              },
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Stylesheet Processing",
+            "slug": "stylesheet-processing"
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Load the required PostCSS plugins",
+                "slug": "load-the-required-postcss-plugins"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Process the stylesheet",
+                "slug": "process-the-stylesheet"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Check for browser support issues",
+                "slug": "check-for-browser-support-issues"
+              },
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "JavaScript Processing",
+            "slug": "javascript-processing"
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Process scripts",
+                "slug": "process-scripts"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Automatically fix coding style guide errors",
+                "slug": "automatically-fix-coding-style-guide-errors"
+              },
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Image Optimization",
+            "slug": "image-optimization"
+          },
+          "depth": 1
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Deletion of Old and Unused Files",
+            "slug": "deletion-of-old-and-unused-files"
+          },
+          "depth": 1
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Dependency Management",
+            "slug": "dependency-management"
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Use revisioned filenames to avoid caching issues",
+                "slug": "use-revisioned-filenames-to-avoid-caching-issues"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Automatically inject Bower dependencies",
+                "slug": "automatically-inject-bower-dependencies"
+              },
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Automatically Run Tasks When Files Are Changed",
+            "slug": "automatically-run-tasks-when-files-are-changed"
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Watch files for changes to automatically update them",
+                "slug": "watch-files-for-changes-to-automatically-update-them"
+              },
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Create a Local Server",
+            "slug": "create-a-local-server"
+          },
+          "depth": 1
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "The Default Task",
+            "slug": "the-default-task"
+          },
+          "depth": 1
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Tasks for the Demo Only",
+            "slug": "tasks-for-the-demo-only"
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Styles",
+                "slug": "styles"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Scripts",
+                "slug": "scripts"
+              },
+              "depth": 3
+            }
+          ]
+        }
+      ]
     }, {
       "type": "file",
       "data": {
@@ -747,7 +1772,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "pageTitle": "package",
         "title": "package"
       },
-      "depth": 1
+      "depth": 1,
+      "outline": []
     }
   ];
 
