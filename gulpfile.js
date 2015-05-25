@@ -26,12 +26,7 @@
  * ============================================================================
  */
 
-/*
- * ### Automatically load Gulp plugins
- *
- * To make things easy, auto-load all gulp plugins.
- */
-
+// ### Automatically load Gulp plugins
 require('matchdep').filterDev('gulp*').forEach(function( module ) {
 
   // Remove the `gulp-` prefix & hyphens for better module var names.
@@ -43,12 +38,9 @@ require('matchdep').filterDev('gulp*').forEach(function( module ) {
 });
 
 
-/*
- * ### Declare filepaths in one place for easy reference/editing
- *
- * For easy reference, declare all filepaths in one place.
- */
+// ### Define filepaths
 
+// For easy reference, declare all filepaths in one place.
 var paths = {
   styles: {
     src: 'app/source/styles/main.css',
@@ -105,56 +97,54 @@ var lazypipe = require('lazypipe');
 /**
  * A function that abstracts the creation of revisioned filenames and source
  * maps for shared use by both style and script tasks.
- * @param {string} dest The path to which files should be saved
+ *
+ * This function will:
+ *
+ * - Create a [revisioned](http://git.io/vUBVd) filename
+ * - Write the sourcemap for easier debugging in the console
+ * - Save the new CSS file
+ * - Write the manifest for mapping revisioned files
+ *   + NOTE: To get merge working, get really explicit (see issue
+ *     [#83](https://github.com/sindresorhus/gulp-rev/issues/83))
+ * - Save the manifest in the public folder
+ *
+ * **NOTE:** Do NOT call the functions when using `lazypipe`
+ *
+ * For example,
+ *
+ *     lazypipe()
+ *       .pipe(rev())
+ *
+ * will cause an error.
+ *
+ * However,
+ *
+ *     lazypipe()
+ *       .pipe(rev)
+ *
+ * will not. Note how `rev` was passed *without being called*.
+ *
+ * @function addFileRevision
+ *
+ * @param  {String} dest The path to which files should be saved
+ *
+ * @return {Function} a stream handler
  */
-
 function addFileRevision( dest ) {
 
-  /*
-   * **NOTE:** Do NOT call the functions when using `lazypipe`
-   *
-   * For example,
-   *
-   *   lazypipe()
-   *     .pipe(rev())
-   *
-   * will cause an error.
-   *
-   * However,
-   *
-   *   lazypipe()
-   *     .pipe(rev)
-   *
-   * will not. Note how `rev` was passed *without being called*.
-   */
-
-  // Return a callable stream handler
   return lazypipe()
 
-    // - Create a [revisioned](http://git.io/vUBVd) filename
     .pipe(rev)
 
-    // - Write the sourcemap for easier debugging in the console
     .pipe(sourcemaps.write, '../maps')
 
-    // - Save the new CSS file
     .pipe(gulp.dest, dest)
 
-    // - Write the manifest for mapping revisioned files
     .pipe(rev.manifest, 'app/public/rev-manifest.json', {
-
-      /*
-       * To get merge working, get really explicit (see issue
-       * [#83](https://github.com/sindresorhus/gulp-rev/issues/83)).
-       */
       base: process.cwd()+'/app/public',
-
-      // To keep JS and CSS working, merge updates with the existing manifest.
       merge: true
-
     })
 
-    // - Save the manifest in the public folder
     .pipe(gulp.dest, 'app/public');
 
 }
@@ -165,13 +155,12 @@ function addFileRevision( dest ) {
  * ============================================================================
  */
 
+// ### Load the required PostCSS plugins
+
 /*
- * ### Load the required PostCSS plugins
- *
  * Since the processors will be used in multiple tasks, we're making them
  * available to the whole script.
  */
-
 var processors = [
 
   // - [`postcss-import`](http://git.io/vUQ0p) for `@import` support
@@ -200,11 +189,9 @@ var processors = [
  *
  * This task will do a bunch of our boring tasks — adding prefixes, minifying,
  * creating source maps, etc. — all without any additional work from us.
- *
- * To keep things tidy, this task triggers the `clean:styles` task before it
- * starts running.
  */
 
+// To keep things tidy, require the `clean:styles` task before running.
 gulp.task('styles', ['clean:styles'], function(  ) {
 
   // - Load our lazypiped file revision handling
@@ -245,11 +232,9 @@ gulp.task('styles', ['clean:styles'], function(  ) {
  * using that aren't supported in older browsers. It doesn't remove the need to
  * do cross-browser testing, but it gives us a great starting point to get it
  * done quickly and thoroughly.
- *
- * **NOTE:** This task isn't run automatically. To use, run
- * `gulp styles:browser-support`.
  */
 
+// **NOTE:** This task isn't automatic. Run with `gulp styles:browser-support`.
 gulp.task('styles:browser-support', function(  ) {
 
   var doiuse = require('doiuse')({
@@ -282,11 +267,9 @@ gulp.task('styles:browser-support', function(  ) {
  * concatenates all the app's scripts together, minifies the output, adds a
  * source map, and adds a revision hash to ensure cache busting. It also
  * transpiles ES6 syntax into ES5 syntax so that we can code in The Future™.
- *
- * To keep things tidy, this task triggers the `clean:scripts` task before it
- * starts running.
  */
 
+// To keep things tidy, require `clean:scripts` task before running.
 gulp.task('scripts', ['clean:scripts'], function(  ) {
 
   var createRevision = addFileRevision(paths.scripts.destDir);
@@ -336,9 +319,8 @@ gulp.task('scripts', ['clean:scripts'], function(  ) {
  * semicolons — plus *much* more — can be fixed by JSCS without any additional
  * work on our part.
  *
- * **NOTE:** This task does not run automatically. To execute it, run
- * `gulp scripts:fix`. A new file with the suffix `.fixed` will be created that
- * contains the modified code.
+ * **NOTE:** This task is non-destructive. Upon running, a new file with the
+ * suffix `.fixed` will be created that contains the modified code.
  *
  * **NOTE:** Fixing code styles could easily be incorporated into the main
  * scripts workflow. It probably wouldn't cause any issues. However, my
@@ -346,6 +328,7 @@ gulp.task('scripts', ['clean:scripts'], function(  ) {
  * in my coding faster.
  */
 
+// **NOTE:** This task isn't automatic. Run with `gulp scripts:fix`
 gulp.task('scripts:fix', function( ) {
 
   gulp.src(paths.scripts.src)
@@ -533,12 +516,9 @@ gulp.task('dependencies:bower', function(  ) {
  * ============================================================================
  */
 
-/*
- * ### Watch files for changes to automatically update them
- *
- * With [`gulp-watch`]()
- */
+// ### Watch files for changes to automatically update them
 
+// With [`gulp-watch`](http://git.io/vThEp) we can run tasks as files change.
 gulp.task('watch', ['serve'], function(  ) {
 
   // - Start listening on the LiveReload port
@@ -572,6 +552,7 @@ gulp.task('watch', ['serve'], function(  ) {
  * [`gulp-nodemon`](http://git.io/vT9ek) makes running a local dev server easy.
  */
 
+// **NOTE:** We're running Node with the `--harmony` flag for ES6 support.
 gulp.task('serve', function(  ) {
 
   nodemon({
@@ -587,11 +568,12 @@ gulp.task('serve', function(  ) {
 /*
  * The Default Task
  * ============================================================================
- *
+ */
+
+/*
  * By creating a default task, we can get the app running just by typing `gulp`
  * in the command line.
  */
-
 gulp.task('default', ['watch']);
 
 
