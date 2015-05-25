@@ -1,0 +1,85 @@
+//- # Jade Mixins
+//-
+//- These mixins made it a little more manageable to deal with adding tabbed
+//- boxes for previewing code input and output.
+
+//- ---------------------------------------------------------------------------
+
+//- Adds the wrapper and tabs for a tabbed box
+//-
+//- This solution would be a lot cooler if Jade allowed dynamic includes, but
+//- alas, it does not. As a result, this is a little rickety to implement:
+//-
+//- Example:
+//-
+//-     - var labels = ['Input', 'Output'];
+//-     +tabbedBox(name, labels)
+//-       +tabbedBoxPanel(name, labels[0], 'javascript', 'false')
+//-         include ../../source/scripts/examples/esnext.js
+//-       +tabbedBoxPanel(name, labels[1], 'javascript')
+//-         include ../../public/js/examples/esnext.js
+//-
+//- @mixin tabbedBox
+//-
+//- @param  {String}    name    A unique name for tab IDs
+//- @param  {String[]}  labels  An array of tab labels
+//-
+//- @return {String} HTML markup to display
+
+mixin tabbedBox(name, labels)
+  - var count = 0;
+  .code-toggle
+    ul.code-toggle__tablist(role="tablist")
+      each label in labels
+        - var selected = count++ === 0 ? 'true' : 'false';
+        +tabbedBoxTab(name, label, selected)
+    if block
+      block
+
+//- ---------------------------------------------------------------------------
+
+//- Creates a tab for the tabbed box
+//-
+//- @mixin tabbedBoxTab
+//-
+//- @param  {String}  name      Tabbed box's unique name for use in the ID
+//- @param  {String}  label     Label for the tab
+//- @param  {String}  selected  Whether or not the tab is selected by default
+//-
+//- @return {String} HTML for the tab
+
+mixin tabbedBoxTab(name, label, selected)
+ - selected = selected || 'false';
+      li.code-toggle__tab(
+        id="tab_#{name}-#{label.toLowerCase()}"
+        role="tab"
+        aria-controls="panel_#{name}-#{label.toLowerCase()}"
+        aria-selected="#{selected}"
+      )= label
+
+//- ---------------------------------------------------------------------------
+
+//- Creates a panel to correspond with a tab
+//-
+//- @mixin tabbedBoxPanel
+//-
+//- @param  {String}  name    Tabbed box's unique name for use in the ID
+//- @param  {String}  label   Label for the tab that controls the panel
+//- @param  {String}  type    Sets language for [Prism](http://prismjs.com/)
+//- @param  {String}  hidden  Whether or not the panel is hidden by default
+//-
+//- @return {String} HTML for the panel
+
+mixin tabbedBoxPanel(name, label, type, hidden)
+  - type = type || 'css';
+  - hidden = hidden || true;
+  .code-toggle__panel(
+    id="panel_#{name}-#{label.toLowerCase()}"
+    role="tabpanel"
+    aria-labelled-by="tab_#{name}-#{label.toLowerCase()}"
+    aria-hidden="#{hidden}"
+  )
+    pre(class="language-" + type)
+      code
+        if block
+          block
