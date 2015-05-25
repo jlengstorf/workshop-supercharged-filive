@@ -1,0 +1,14 @@
+{
+  "glob": [
+    "./README.md",
+    "./*.json",
+    "./gulpfile.js",
+    "./app/index.js",
+    "./app/server/**/*.jade",
+    "./app/source/**/*.js",
+    "./app/source/**/*.css"
+  ],
+  "github": true,
+  "root": ".",
+  "repository-url": "https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow"
+}
