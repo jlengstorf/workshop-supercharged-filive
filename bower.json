@@ -1,0 +1,22 @@
+{
+  "name": "workshop-supercharged-filive",
+  "version": "0.1.0",
+  "authors": [
+    "Jason Lengstorf <jason@lengstorf.com>"
+  ],
+  "description": "App w/which we continue our quest for front-end supremacy.",
+  "main": "app/index.js",
+  "license": "MIT",
+  "homepage": "https://github.com/jlengstorf/workshop-supercharged-filive",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "app/public/vendor"
+  ],
+  "dependencies": {
+    "es6-shim": "~0.31.2"
+  },
+  "devDependencies": {
+    "visionmedia-debug": "~2.2.0"
+  }
+}

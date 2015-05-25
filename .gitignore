@@ -1,0 +1,6 @@
+# Dependency directories
+node_modules
+app/public/vendor
+
+# Docs don't need to be on the master branch
+doc

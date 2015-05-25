@@ -1,0 +1,17 @@
+//- # _header.jade
+
+//- This is a reusable fragment to be used on all pages in the app.
+
+header.site-header(role="banner")
+  a.site-header__name(href="/" rel="home") Supercharge Your Front-End Workflow
+  ul.site-navigation(role="navigation" aria-label="Site Navigation")
+
+    //- Loop through the pages and create menu items
+    each page in ["automation", "styles", "scripts", "images"]
+      li.site-navigation__nav-item
+
+        //- Check if the URL matches the item to add an `active` class
+        a.site-navigation__link(
+          href="/#{page}/"
+          class={ active: currentUrl==='/#{page}/' }
+        )= page.toUpperCase()

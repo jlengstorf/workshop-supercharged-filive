@@ -1,0 +1,76 @@
+//- # default.jade
+//- This layout is extended by other pages. It creates general structure and
+//- provides shared scripts and stylesheets.
+
+//- Include the mixins for use on examples pages
+include ../mixins/tabbed-box
+
+//- Default labels for tabs
+- var labels = ['Input', 'Output'];
+
+//- This will be used for (or appended to) all page titles
+- var title = 'Supercharge Your Front-End Workflow';
+
+doctype html
+html(lang="en")
+  head
+
+    //- Each view that extends this layout can set its own title with a var
+    block title
+      title= title
+
+    //- CSS dependencies from Bower, injected by wiredep
+    //- bower:css
+    //- endbower
+
+    //-
+      [Prism.js](http://prismjs.com/) is used for syntax highlighting.
+
+      NOTE: This is a custom build, so we can't use Bower in this case.
+    link(rel="stylesheet", href="/lib/prism.css")
+
+
+    //-
+      App styles are automatically injected by `gulp-inject` and revisioned by
+      a combination of `gulp-rev` and `gulp-rev-replace`.
+
+    //- inject:css
+    link(rel="stylesheet", href="/css/main.min-992289c6.css")
+    //- endinject
+
+  body
+
+    //- The header is included as a partial for easy reuse
+    include ../partials/_header
+
+    //- The main content block is wrapped in a div for easy reference
+    .main-content
+      block content
+
+    //- The footer is included as a partial for easy reuse
+    include ../partials/_footer
+
+    //- JavaScript dependencies from Bower, injected by wiredep
+    //- bower:js
+    script(src='/vendor/es6-shim/es6-shim.js')
+    script(src='/vendor/visionmedia-debug/dist/debug.js')
+    //- endbower
+
+    //-
+      [Prism.js](http://prismjs.com/) is used for syntax highlighting.
+
+      NOTE: This is a custom build, so we can't use Bower in this case.
+
+    script(src="/lib/prism.js")
+
+
+    //-
+      App scripts are automatically injected by `gulp-inject` and revisioned by
+      a combination of `gulp-rev` and `gulp-rev-replace`.
+
+    //- inject:js
+    script(src="/js/main.min-141cf8da.js")
+    //- endinject
+
+    //- Any view that extends this layout can add scripts using this block
+    block appscripts
