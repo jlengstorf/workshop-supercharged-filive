@@ -1,0 +1,304 @@
+//- # automation.jade
+
+extends ../layouts/default
+
+block title
+  title Task Automation | #{title}
+
+block content
+  h1 Task Automation with Gulp
+  p.
+    A lot of the mundane tasks of web development — setting up dev servers,
+    refreshing the page after making file changes, etc. — can be automated
+    using task runners like Gulp (or Grunt, or Broccoli).
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Start a Server";
+  - var name = 'serve';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      For local development, it's helpful to be able to work on your site
+      without the hassle of setting up a development server.
+    p With #[a(href="http://git.io/vT9ek") #[code gulp-nodemon]], it's easy.
+
+    //- See `app/server/mixins/tabbed-box.jade`
+    +tabbedBox(name, ['gulp.task(\'serve\')', 'console'])
+      +tabbedBoxPanel(name, 'gulp.task(\'serve\')', 'javascript', 'false').
+        gulp.task('serve', function(  ) {
+          nodemon({ script: 'app/index.js' });
+        });
+      +tabbedBoxPanel(name, 'console', 'clike').
+        $ gulp serve
+        [12:57:56] Using gulpfile ~/supercharged-filive/httpdocs/gulpfile.js
+        [12:57:56] Starting 'serve'...
+        [12:57:56] Finished 'serve' after 1.28 ms
+        [12:57:56] [nodemon] v1.3.7
+        [12:57:56] [nodemon] to restart at any time, enter `rs`
+        [12:57:56] [nodemon] watching: *.*
+        [12:57:56] [nodemon] starting `node app/index.js`
+        App started and listening on port 3000
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Automatically Load Gulp Plugins";
+  - var name = 'matchdep';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      When we're using more than just a few Gulp plugins, requiring them all
+      can become cumbersome. It's also a gotcha that once we add a new plugin,
+      we forget to require it the first time.
+    p.
+      Using #[a(href="http://git.io/vTFGH") #[code matchdep]], we can
+      automatically require all our Gulp plugins, which saves some hassle.
+
+    pre.language-javascript
+      code.
+        require('matchdep').filterDev('gulp*').forEach(function( module ) {
+
+          // } Remove the `gulp-` prefix & hyphens for better module var names.
+          var module_name = module.replace(/^gulp-/, '').replace(/-/, '');
+
+          // } Then require the module.
+          global[module_name] = require(module);
+
+        });
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Watch Files for Changes";
+  - var name = 'watch';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      Using watch, we can quickly and easily execute tasks as the files they
+      affect are added, updated, or deleted.
+    p.
+      For example, if we set a watcher on our images, look at the console
+      output when an image is updated.
+
+    //- See `app/server/mixins/tabbed-box.jade`
+    +tabbedBox(name, ['gulp.task(\'watch\')', 'console'])
+      +tabbedBoxPanel(name, 'gulp.task(\'watch\')', 'javascript', 'false').
+        gulp.task('watch', ['serve'], function(  ) {
+
+          // } - Start listening on the LiveReload port
+          livereload.listen();
+
+          // } - Whenever images are added or removed, run the `images` task
+          gulp.watch(paths.images.watch, ['images']);
+
+          // } ... add more tasks as needed ...
+
+        });
+      +tabbedBoxPanel(name, 'console', 'clike').
+        [15:54:26] Starting 'clean:images'...
+        [15:54:26] Finished 'clean:images' after 3.34 ms
+        [15:54:26] Starting 'images'...
+        [15:54:26] Finished 'images' after 7.73 ms
+        [gulp] Using file ./app/source/images/compressed-images_compressed.png
+        [gulp] Using file ./app/source/images/retina-background-display.jpg
+        [gulp] Using file ./app/source/images/retina-background-display@2x.jpg
+        [gulp] Using file ./app/source/images/social
+        [15:54:29] gulp-imagemin: Minified 3 images (saved 200.02 kB - 51%)
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "App Resource Injection";
+  - var name = 'app-resources';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      Using #[a(href="http://git.io/vTFsf") #[code gulp-inject]], we can
+      automatically insert the required style and script dependencies into our
+      default Jade template, then use
+      #[a(href="http://git.io/vTFsn") #[code gulp-rev-replace]] to swap out the
+      revisioned filenames.
+
+    //- See `app/server/mixins/tabbed-box.jade`
+    +tabbedBox(name, ['Gulp', 'Before', 'After'])
+      +tabbedBoxPanel(name, 'Gulp', 'javascript', 'false').
+        gulp.task('dependencies:app', function(  ) {
+
+          // } - Grab the unrevved file names to inject
+          // } -- Don't read the files to eke out a little extra performance
+          var styles = gulp.src([
+            'app/public/css/main.min.css',
+            'app/public/js/main.min.js'
+          ], { read: false });
+
+          // } - Load the template files
+          gulp.src(paths.templates.src)
+
+            // } - Inject the unrevved file into the template
+            .pipe(inject(styles, { ignorePath: 'app/public' }))
+
+            // } - Replace with the revved filename
+            .pipe(revreplace({
+              manifest: gulp.src('app/public/rev-manifest.json'),
+              replaceInExtensions: ['.jade']
+            }))
+
+            // } - Save the file
+            .pipe(gulp.dest(paths.templates.destDir))
+
+            // } - Reload the browser
+            .pipe(livereload());
+
+        });
+      +tabbedBoxPanel(name, 'Before', 'jade').
+        //- } # default.jade
+        //- } ... truncated for brevity ...
+        doctype html
+        html(lang="en")
+          head
+
+            //- } ...
+
+            //- } inject:css
+            //- } endinject
+
+          body
+
+            //- } ...
+
+            //- } inject:js
+            //- } endinject
+      +tabbedBoxPanel(name, 'After', 'jade').
+        //- } # default.jade
+        //- } ... truncated for brevity ...
+        doctype html
+        html(lang="en")
+          head
+
+            //- } ...
+
+            //- } inject:css
+            link(rel="stylesheet", href="/css/main.min-992289c6.css")
+            //- } endinject
+
+          body
+
+            //- } ...
+
+            //- } inject:js
+            script(src="/js/main.min-141cf8da.js")
+            //- } endinject
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "App Dependency Injection";
+  - var name = 'app-dependencies';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      Similar to our app resources, we can inject stylesheets and scripts for
+      our Bower dependencies into our Jade template.
+      #[a(href="http://git.io/vTdch") #[code wiredep]] is specifically built to
+      do exactly that, so we'll use it here.
+
+    //- See `app/server/mixins/tabbed-box.jade`
+    +tabbedBox(name, ['Gulp', 'Before', 'After'])
+      +tabbedBoxPanel(name, 'Gulp', 'javascript', 'false').
+        gulp.task('dependencies:bower', function(  ) {
+
+          // } - Use the `stream` support wiredep offers
+          var wiredep = require('wiredep').stream;
+
+          // } - Target which file(s) need to have dependencies included
+          gulp.src(paths.templates.src)
+
+            // } - Wire all Bower dependencies into the source files
+            .pipe(wiredep({
+              devDependencies: true,
+              ignorePath: '../../public'
+            }))
+
+            // } - Save the file in the destination directory
+            .pipe(gulp.dest(paths.templates.destDir))
+
+            // } - Reload the browser
+            .pipe(livereload());
+
+        });
+      +tabbedBoxPanel(name, 'Before', 'jade').
+        //- } # default.jade
+        //- } ... truncated for brevity ...
+        doctype html
+        html(lang="en")
+          head
+            //- } ...
+          body
+            //- } ...
+
+            //- } JavaScript dependencies from Bower, injected by wiredep
+            //- } bower:js
+            //- } endbower
+      +tabbedBoxPanel(name, 'After', 'jade').
+        //- } # default.jade
+        //- } ... truncated for brevity ...
+        doctype html
+        html(lang="en")
+          head
+            //- } ...
+          body
+            //- } ...
+
+            //- } JavaScript dependencies from Bower, injected by wiredep
+            //- } bower:js
+            script(src='/vendor/es6-shim/es6-shim.js')
+            script(src='/vendor/visionmedia-debug/dist/debug.js')
+            //- } endbower
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Remove Old and Unused Files";
+  - var name = 'clean';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      Before running a Gulp task, old files should be deleted. This isn't
+      strictly necessary, but it's very helpful to make sure you don't have
+      unused files or old versions introducing project size bloat or subtle
+      bugs (e.g. if a task doesn't work but the old version is there, you may
+      not immediately notice a problem).
+    p.
+      This is easy to do using #[a(href="http://git.io/vTFLa") #[code del]].
+
+    //- See `app/server/mixins/tabbed-box.jade`
+    +tabbedBox(name, ['gulp.task(\'clean:styles\')'])
+      +tabbedBoxPanel(name, 'gulp.task(\'clean:styles\')', 'javascript', 'false').
+        // } To empty directories before processing, we use [`del`](http://git.io/vTFLa).
+        var del = require('del');
+
+        // } - Remove the processed stylesheets
+        gulp.task('clean:styles', function(  ) {
+
+          // } `del` is not a Gulp plugin, so we don't pipe files into it.
+          del([
+            'app/public/css/*.*',
+            'app/public/maps/**.css.map',
+            'app/public/css/examples/*.*'
+          ]);
+
+        });
