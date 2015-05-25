@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en"><head><title>app/server/views/scripts</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../"><meta name="groc-document-path" content="app/server/views/scripts"><meta name="groc-project-path" content="app/server/views/scripts.jade"><meta name="groc-github-url" content="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow/blob/master/app/server/views/scripts.jade">app/server/views/scripts.jade</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">extends ../layouts/<span class="hljs-keyword">default</span>
+
+<span class="hljs-keyword">block</span> title
+  title JavaScript Linting, Processing, <span class="hljs-keyword">and</span> Optimization | #<span class="hljs-comment">{title}</span>
+
+<span class="hljs-keyword">block</span> content
+  h1 JavaScript Linting, Processing, <span class="hljs-keyword">and</span> Optimization
+  p.
+    Good JavaScript needs <span class="hljs-keyword">to</span> be error-free, consistent, <span class="hljs-keyword">and</span> optimized <span class="hljs-keyword">for</span>
+    reliable execution <span class="hljs-keyword">on</span> popular browsers — all <span class="hljs-keyword">while</span> being streamlined <span class="hljs-keyword">for</span>
+    loading speed.
+  p.
+    <span class="hljs-keyword">To</span> make all this a little less daunting, Gulp can <span class="hljs-keyword">take</span> care <span class="hljs-keyword">of</span> the
+    particularly boring tasks.</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - var title = <span class="hljs-string">"Linting"</span>;
+  - var name = <span class="hljs-attribute">'linting</span>';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      <span class="hljs-keyword">To</span> ensure that our code doesn<span class="hljs-attribute">'t</span> have any obvious bugs, we can (<span class="hljs-keyword">and</span>
+      probably should) <span class="hljs-keyword">use</span> a JavaScript linter such as
+      #[a(href=<span class="hljs-string">"http://jslint.com/"</span>) JSLint] <span class="hljs-keyword">or</span>
+      #[a(href=<span class="hljs-string">"http://jslint.com/"</span>) JSHint]. <span class="hljs-keyword">In</span> this example, we<span class="hljs-attribute">'re</span> using
+      #[a(href=<span class="hljs-string">"http://git.io/vTHKZ"</span>) #[code gulp-jshint]].
+    p.
+      <span class="hljs-keyword">When</span> a task using JSHint runs, warnings <span class="hljs-keyword">and</span> errors will be output <span class="hljs-keyword">in</span> the
+      console <span class="hljs-keyword">with</span> helpful info that makes them easy <span class="hljs-keyword">to</span> locate <span class="hljs-keyword">and</span> fix.
+    p Have a look at this example <span class="hljs-keyword">file</span> <span class="hljs-keyword">and</span> the resultant console output.
+
+    +tabbedBox(name, [<span class="hljs-attribute">'linting</span>.js', <span class="hljs-attribute">'console</span>'])
+      +tabbedBoxPanel(name, <span class="hljs-attribute">'linting</span>.js', <span class="hljs-attribute">'javascript</span>', <span class="hljs-attribute">'false</span>')
+        include ../../source/scripts/examples/linting.js
+      +tabbedBoxPanel(name, <span class="hljs-attribute">'console</span>', <span class="hljs-attribute">'javascript</span>').
+        /supercharged-filive/httpdocs/app/source/scripts/examples/linting.js
+          line <span class="hljs-number">5</span>  col <span class="hljs-number">7</span>   <span class="hljs-attribute">'i</span>' <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> defined.
+          line <span class="hljs-number">5</span>  col <span class="hljs-number">14</span>  <span class="hljs-attribute">'i</span>' <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> defined.
+          line <span class="hljs-number">5</span>  col <span class="hljs-number">22</span>  <span class="hljs-attribute">'i</span>' <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> defined.
+          line <span class="hljs-number">6</span>  col <span class="hljs-number">38</span>  <span class="hljs-attribute">'i</span>' <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> defined.
+
+          ⚠  <span class="hljs-number">4</span> warnings</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - var title = "Style Guide Adherence";
+  - var name = 'style-guide';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      In addition to linting for errors, you can <span class="hljs-operator"><span class="hljs-keyword">use</span> JSCS, which allows you <span class="hljs-keyword">to</span>
+      <span class="hljs-keyword">check</span> your code against a style guide. You can <span class="hljs-keyword">choose</span> <span class="hljs-keyword">from</span> an existing
+      style guide, <span class="hljs-keyword">like</span> Google, Airbnb, <span class="hljs-keyword">or</span> jQuery, <span class="hljs-keyword">or</span> you can build your own
+      <span class="hljs-keyword">using</span> a #[code .jscsrc] file.
+    p Have a look <span class="hljs-keyword">at</span> this example file <span class="hljs-keyword">and</span> the resultant console <span class="hljs-keyword">output</span>.
+
+    +tabbedBox(name, [<span class="hljs-string">'style-guide.js'</span>, <span class="hljs-string">'console'</span>])
+      +tabbedBoxPanel(name, <span class="hljs-string">'style-guide.js'</span>, <span class="hljs-string">'javascript'</span>, <span class="hljs-string">'false'</span>)
+        include ../../source/scripts/examples/style-guide.js
+      +tabbedBoxPanel(name, <span class="hljs-string">'console'</span>, <span class="hljs-string">'javascript'</span>).
+        One <span class="hljs-keyword">space</span> required <span class="hljs-keyword">after</span> <span class="hljs-string">"while"</span> keyword <span class="hljs-keyword">at</span> style-guide.js :
+             <span class="hljs-number">5</span> |
+             <span class="hljs-number">6</span> |  // Needs a <span class="hljs-keyword">space</span> <span class="hljs-keyword">between</span> <span class="hljs-string">`while`</span> <span class="hljs-keyword">and</span> <span class="hljs-string">`(`</span>
+             <span class="hljs-number">7</span> |  while(i &lt; <span class="hljs-number">10</span>) {
+        <span class="hljs-comment">---------------^</span>
+             <span class="hljs-number">8</span> |    console.<span class="hljs-keyword">log</span>(<span class="hljs-string">'The count is now'</span> + i++);</span>
+             9 |  }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - var title = <span class="hljs-string">"ES6 Support"</span>;
+  - var <span class="hljs-property">name</span> = 'esnext';
+
+  .example(data-<span class="hljs-property">name</span>=title)
+    h2= title
+
+    p.
+      <span class="hljs-comment">#[a(href="http://git.io/HSwS2Q") EcmaScript 6] (ES6 for short) is coming,</span>
+      <span class="hljs-keyword">and</span> soon. You can start using <span class="hljs-keyword">it</span> now <span class="hljs-keyword">with</span> <span class="hljs-keyword">by</span> using a
+      <span class="hljs-comment">#[a(href="http://bit.ly/1F2iiS8") transpiler] which converts ES6 syntax to</span>
+      ES5, which <span class="hljs-comment">#[a(href="http://git.io/vTHQ8") works on most browsers].</span>
+
+    +tabbedBox(<span class="hljs-property">name</span>, labels)
+      +tabbedBoxPanel(<span class="hljs-property">name</span>, labels[<span class="hljs-number">0</span>], 'javascript', '<span class="hljs-constant">false</span>')
+        include ../../source/scripts/examples/esnext.js
+      +tabbedBoxPanel(<span class="hljs-property">name</span>, labels[<span class="hljs-number">1</span>], 'javascript')
+        include ../../public/js/examples/esnext.js</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - <span class="hljs-keyword">var</span> title = <span class="hljs-string">"Concatenation"</span>;
+  - <span class="hljs-keyword">var</span> name = <span class="hljs-string">'concatenation'</span>;
+  - <span class="hljs-keyword">var</span> concatLabels = [<span class="hljs-string">'file1.js'</span>, <span class="hljs-string">'file2.js'</span>, <span class="hljs-string">'combined.js'</span>];
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      <span class="hljs-comment">#[a(href="http://git.io/HSwS2Q") EcmaScript 6] (ES6 for short) is coming,</span>
+      <span class="hljs-keyword">and</span> soon. You can start using it now with by using a
+      <span class="hljs-comment">#[a(href="http://bit.ly/1F2iiS8") transpiler] which converts ES6 syntax to</span>
+      ES5, which <span class="hljs-comment">#[a(href="http://git.io/vTHQ8") works on most browsers].</span>
+
+    +tabbedBox(name, concatLabels)
+      +tabbedBoxPanel(name, concatLabels[<span class="hljs-number">0</span>], <span class="hljs-string">'javascript'</span>, <span class="hljs-string">'false'</span>)
+        <span class="hljs-keyword">include</span> ../../source/scripts/examples/concatenation1.js
+      +tabbedBoxPanel(name, concatLabels[<span class="hljs-number">1</span>], <span class="hljs-string">'javascript'</span>)
+        <span class="hljs-keyword">include</span> ../../source/scripts/examples/concatenation2.js
+      +tabbedBoxPanel(name, concatLabels[<span class="hljs-number">2</span>], <span class="hljs-string">'javascript'</span>)
+        <span class="hljs-keyword">include</span> ../../<span class="hljs-keyword">public</span>/js/examples/combined.js</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - var title = <span class="hljs-string">"Minification"</span>;
+  - var <span class="hljs-property">name</span> = 'minified';
+
+  .example(data-<span class="hljs-property">name</span>=title)
+    h2= title
+
+    p.
+      <span class="hljs-comment">#[a(href="http://git.io/HSwS2Q") EcmaScript 6] (ES6 for short) is coming,</span>
+      <span class="hljs-keyword">and</span> soon. You can start using <span class="hljs-keyword">it</span> now <span class="hljs-keyword">with</span> <span class="hljs-keyword">by</span> using a
+      <span class="hljs-comment">#[a(href="http://bit.ly/1F2iiS8") transpiler] which converts ES6 syntax to</span>
+      ES5, which <span class="hljs-comment">#[a(href="http://git.io/vTHQ8") works on most browsers].</span>
+
+    +tabbedBox(<span class="hljs-property">name</span>, labels)
+      +tabbedBoxPanel(<span class="hljs-property">name</span>, labels[<span class="hljs-number">0</span>], 'javascript', '<span class="hljs-constant">false</span>')
+        include ../../source/scripts/examples/minification.js
+      +tabbedBoxPanel(<span class="hljs-property">name</span>, labels[<span class="hljs-number">1</span>], 'javascript')
+        include ../../public/js/examples/minification.min.js</div></div></div></div></body></html>

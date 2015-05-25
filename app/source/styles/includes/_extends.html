@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en"><head><title>app/source/styles/includes/_extends</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../../"><meta name="groc-document-path" content="app/source/styles/includes/_extends"><meta name="groc-project-path" content="app/source/styles/includes/_extends.css"><meta name="groc-github-url" content="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow"><link rel="stylesheet" type="text/css" media="all" href="../../../../assets/style.css"><script type="text/javascript" src="../../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow/blob/master/app/source/styles/includes/_extends.css">app/source/styles/includes/_extends.css</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="-extendscss">_extends.css</h1>
+<p>These elements are placeholders. They don&#39;t show up in the final CSS that&#39;s
+rendered. However, their styles can be quickly applied to other elements
+using the <code>@extend placeholder-name</code> syntax.</p>
+<p>This is all made possible by <a href="http://git.io/vUQes"><code>postcss-simple-extend</code></a>.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="inverted-colors">Inverted Colors</h2>
+<p>Extend this class to create a light-on-dark color scheme.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-at_rule">@<span class="hljs-keyword">define-placeholder</span> inverted-colors </span>{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">color</span>( $backgroundColor <span class="hljs-function">lightness</span>(-<span class="hljs-number">80%</span>) )</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> $backgroundColor</span></span>;
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="full-width-module">Full Width Module</h2>
+<p>Extend this class for a full-width div. This adds negative margin to
+compensate for the body&#39;s padding, a la Bootstrap container/row handling.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-at_rule">@<span class="hljs-keyword">define-placeholder</span> full-width </span>{
+  <span class="hljs-rule"><span class="hljs-attribute">margin-left</span>:<span class="hljs-value"> <span class="hljs-function">calc</span>( $baseVerticalGrid * -<span class="hljs-number">2</span> )</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-right</span>:<span class="hljs-value"> <span class="hljs-function">calc</span>( $baseVerticalGrid * -<span class="hljs-number">2</span> )</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> $baseVerticalGrid <span class="hljs-function">calc</span>( $baseVerticalGrid * <span class="hljs-number">2</span> )</span></span>;
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="example-container">Example Container</h2>
+<p>Gives us an easy-to-spot container for examples.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-at_rule">@<span class="hljs-keyword">define-placeholder</span> example-container </span>{
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> dotted <span class="hljs-function">color</span>( $backgroundColor <span class="hljs-function">lightness</span>(-<span class="hljs-number">10%</span>) )</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-top</span>:<span class="hljs-value"> <span class="hljs-function">calc</span>( $baseVerticalGrid * <span class="hljs-number">2</span> )</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-bottom</span>:<span class="hljs-value"> <span class="hljs-function">calc</span>( $baseVerticalGrid * <span class="hljs-number">2</span> )</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> $baseVerticalGrid</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> relative</span></span>;
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="example-resultsoutput">Example Results/Output</h2>
+<p>These placeholders are for showing example output or results.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="plain-background">Plain background</h3>
+<p>Nice and simple output. Just put a border around it and call it good.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-at_rule">@<span class="hljs-keyword">define-placeholder</span> plain-background </span>{
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> solid <span class="hljs-hexcolor">#f1f1f1</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> $baseVerticalGrid</span></span>;
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="patterned-background">Patterned background</h3>
+<p>Adds a diagonally striped background to an element. This is ideal for
+examples that deal with transparency.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-at_rule">@<span class="hljs-keyword">define-placeholder</span> patterned-background </span>{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">linear-gradient</span>(
+    <span class="hljs-number">45deg</span>,
+    <span class="hljs-hexcolor">#f1f1f1</span> <span class="hljs-number">0%</span>,
+    <span class="hljs-hexcolor">#f1f1f1</span> <span class="hljs-number">25%</span>,
+    <span class="hljs-hexcolor">#fff</span> <span class="hljs-number">26%</span>,
+    <span class="hljs-hexcolor">#fff</span> <span class="hljs-number">50%</span>,
+    <span class="hljs-hexcolor">#f1f1f1</span> <span class="hljs-number">51%</span>,
+    <span class="hljs-hexcolor">#f1f1f1</span> <span class="hljs-number">75%</span>,
+    <span class="hljs-hexcolor">#fff</span> <span class="hljs-number">76%</span>,
+    <span class="hljs-hexcolor">#fff</span> <span class="hljs-number">100%</span>
+  )</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background-size</span>:<span class="hljs-value"> <span class="hljs-number">30px</span> <span class="hljs-number">30px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> solid <span class="hljs-hexcolor">#f1f1f1</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> $baseVerticalGrid</span></span>;
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="show-the-classes-applied-to-the-element">Show the classes applied to the element</h3>
+<p>To make it easier to see what&#39;s happening in example output, we can show the
+classes applied to an element below it.</p>
+<p><strong>NOTE:</strong> This can only be extended by pseudo-elements or it won&#39;t work!</p></div></div><div class="code"><div class="wrapper"><span class="hljs-at_rule">@<span class="hljs-keyword">define-placeholder</span> show-element-class-names </span>{
+  <span class="hljs-rule"><span class="hljs-attribute">content</span>:<span class="hljs-value"> <span class="hljs-function">attr</span>(class)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">line-height</span>:<span class="hljs-value"> <span class="hljs-number">2</span></span></span>;
+}</div></div></div></div></body></html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="en"><head><title>app/server/views/automation</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../"><meta name="groc-document-path" content="app/server/views/automation"><meta name="groc-project-path" content="app/server/views/automation.jade"><meta name="groc-github-url" content="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow/blob/master/app/server/views/automation.jade">app/server/views/automation.jade</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="automationjade">automation.jade</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper">extends ../layouts/default
+
+block title
+  title Task Automation | <span class="hljs-comment">#{title}</span>
+
+block content
+  h1 Task Automation <span class="hljs-operator">with</span> Gulp
+  p.
+    A lot <span class="hljs-operator">of</span> <span class="hljs-operator">the</span> mundane tasks <span class="hljs-operator">of</span> web development — setting up dev servers,
+    refreshing <span class="hljs-operator">the</span> page <span class="hljs-keyword">after</span> making <span class="hljs-built_in">file</span> changes, etc. — can be automated
+    <span class="hljs-keyword">using</span> task runners like Gulp (<span class="hljs-operator">or</span> Grunt, <span class="hljs-operator">or</span> Broccoli).</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - var title = <span class="hljs-string">"Start a Server"</span>;
+  - var <span class="hljs-property">name</span> = 'serve';
+
+  .example(data-<span class="hljs-property">name</span>=title)
+    h2= title
+
+    p.
+      For <span class="hljs-keyword">local</span> development, <span class="hljs-keyword">it</span>'s helpful <span class="hljs-keyword">to</span> be able <span class="hljs-keyword">to</span> work <span class="hljs-function_start"><span class="hljs-keyword">on</span></span> your site
+      <span class="hljs-keyword">without</span> <span class="hljs-keyword">the</span> hassle <span class="hljs-keyword">of</span> setting up a development server.
+    p With <span class="hljs-comment">#[a(href="http://git.io/vT9ek") #[code gulp-nodemon]], it's easy.</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>See <code>app/server/mixins/tabbed-box.jade</code></p></div></div><div class="code"><div class="wrapper">    +<span class="hljs-atom">tabbedBox</span>(<span class="hljs-atom">name</span>, [<span class="hljs-string">'gulp.task(\'serve\')'</span>, <span class="hljs-string">'console'</span>])
+      +<span class="hljs-atom">tabbedBoxPanel</span>(<span class="hljs-atom">name</span>, <span class="hljs-string">'gulp.task(\'serve\')'</span>, <span class="hljs-string">'javascript'</span>, <span class="hljs-string">'false'</span>).
+        <span class="hljs-atom">gulp</span>.<span class="hljs-atom">task</span>(<span class="hljs-string">'serve'</span>, <span class="hljs-atom">function</span>(  ) {
+          <span class="hljs-atom">nodemon</span>({ <span class="hljs-atom">script</span>: <span class="hljs-string">'app/index.js'</span> });
+        });
+      +<span class="hljs-atom">tabbedBoxPanel</span>(<span class="hljs-atom">name</span>, <span class="hljs-string">'console'</span>, <span class="hljs-string">'clike'</span>).
+        $ <span class="hljs-atom">gulp</span> <span class="hljs-atom">serve</span>
+        [<span class="hljs-number">12</span>:<span class="hljs-number">57</span>:<span class="hljs-number">56</span>] <span class="hljs-name">Using</span> <span class="hljs-atom">gulpfile</span> ~/<span class="hljs-atom">supercharged</span>-<span class="hljs-atom">filive</span>/<span class="hljs-atom">httpdocs</span>/<span class="hljs-atom">gulpfile</span>.<span class="hljs-atom">js</span>
+        [<span class="hljs-number">12</span>:<span class="hljs-number">57</span>:<span class="hljs-number">56</span>] <span class="hljs-name">Starting</span> <span class="hljs-string">'serve'</span>...
+        [<span class="hljs-number">12</span>:<span class="hljs-number">57</span>:<span class="hljs-number">56</span>] <span class="hljs-name">Finished</span> <span class="hljs-string">'serve'</span> <span class="hljs-atom">after</span> <span class="hljs-number">1.28</span> <span class="hljs-atom">ms</span>
+        [<span class="hljs-number">12</span>:<span class="hljs-number">57</span>:<span class="hljs-number">56</span>] [<span class="hljs-atom">nodemon</span>] <span class="hljs-atom">v1</span>.3.7
+        [<span class="hljs-number">12</span>:<span class="hljs-number">57</span>:<span class="hljs-number">56</span>] [<span class="hljs-atom">nodemon</span>] <span class="hljs-atom">to</span> <span class="hljs-atom">restart</span> <span class="hljs-atom">at</span> <span class="hljs-atom">any</span> <span class="hljs-atom">time</span>, <span class="hljs-atom">enter</span> <span class="hljs-string">`rs`</span>
+        [<span class="hljs-number">12</span>:<span class="hljs-number">57</span>:<span class="hljs-number">56</span>] [<span class="hljs-atom">nodemon</span>] <span class="hljs-atom">watching</span>: *.*
+        [<span class="hljs-number">12</span>:<span class="hljs-number">57</span>:<span class="hljs-number">56</span>] [<span class="hljs-atom">nodemon</span>] <span class="hljs-atom">starting</span> <span class="hljs-string">`node app/index.js`</span>
+        <span class="hljs-name">App</span> <span class="hljs-atom">started</span> <span class="hljs-atom">and</span> <span class="hljs-atom">listening</span> <span class="hljs-atom">on</span> <span class="hljs-atom">port</span> <span class="hljs-number">3000</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - <span class="hljs-reserved">var</span> title = <span class="hljs-string">"Automatically Load Gulp Plugins"</span>;
+  - <span class="hljs-reserved">var</span> name = <span class="hljs-string">'matchdep'</span>;
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      When we<span class="hljs-string">'re using more than just a few Gulp plugins, requiring them all
+      can become cumbersome. It'</span>s also a gotcha that once we add a <span class="hljs-keyword">new</span> plugin,
+      we forget to <span class="hljs-built_in">require</span> it the first time.
+    p.
+      Using <span class="hljs-comment">#[a(href="http://git.io/vTFGH") #[code matchdep]], we can</span>
+      automatically <span class="hljs-built_in">require</span> all our Gulp plugins, which saves some hassle.
+
+    pre.language-javascript
+      code.
+        <span class="hljs-built_in">require</span>(<span class="hljs-string">'matchdep'</span>).filterDev(<span class="hljs-string">'gulp*'</span>).forEach(<span class="hljs-reserved">function</span>( <span class="hljs-built_in">module</span> ) {
+
+          <span class="hljs-regexp">//</span> Remove the `<span class="javascript">gulp-</span>` prefix &amp; hyphens <span class="hljs-keyword">for</span> better <span class="hljs-built_in">module</span> <span class="hljs-reserved">var</span> names.
+          <span class="hljs-reserved">var</span> module_name = <span class="hljs-built_in">module</span>.replace(<span class="hljs-regexp">/^gulp-/</span>, <span class="hljs-string">''</span>).replace(<span class="hljs-regexp">/-/</span>, <span class="hljs-string">''</span>);
+
+          <span class="hljs-regexp">//</span> Then <span class="hljs-built_in">require</span> the <span class="hljs-built_in">module</span>.
+          <span class="hljs-built_in">global</span>[module_name] = <span class="hljs-built_in">require</span>(<span class="hljs-built_in">module</span>);
+
+        });</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - var title = <span class="hljs-string">"Watch Files for Changes"</span>;
+  - var name = 'watch';
+
+<span class="hljs-keyword">  .example</span>(data-name=title<span class="hljs-function">)</span>
+    h2= title
+
+    p.
+      Using watch, we can quickly<span class="hljs-instruction"> and </span>easily<span class="hljs-instruction"> execute </span>tasks as the files they
+      affect are added, updated,<span class="hljs-instruction"> or </span>deleted.
+    p.
+      For example,<span class="hljs-instruction"> if </span>we set a watcher on our images, look at the console
+      output when an image is updated.</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>See <code>app/server/mixins/tabbed-box.jade</code></p></div></div><div class="code"><div class="wrapper">    +tabbedBox(name, [<span class="hljs-string">'gulp.task(\'watch\')'</span>, <span class="hljs-string">'console'</span>])
+      +tabbedBoxPanel(name, <span class="hljs-string">'gulp.task(\'watch\')'</span>, <span class="hljs-string">'javascript'</span>, <span class="hljs-string">'false'</span>).
+        gulp.<span class="hljs-keyword">task</span>(<span class="hljs-string">'watch'</span>, [<span class="hljs-string">'serve'</span>], function(  ) {
+
+          <span class="hljs-comment">// - Start listening on the LiveReload port</span>
+          livereload.listen();
+
+          <span class="hljs-comment">// - Whenever images are added or removed, run the `images` task</span>
+          gulp.watch(paths.images.watch, [<span class="hljs-string">'images'</span>]);
+
+          <span class="hljs-comment">// ... add more tasks as needed ...</span>
+
+        });
+      +tabbedBoxPanel(name, <span class="hljs-string">'console'</span>, <span class="hljs-string">'clike'</span>).
+        [<span class="hljs-number">15</span>:<span class="hljs-number">54</span>:<span class="hljs-number">26</span>] Starting <span class="hljs-string">'clean:images'</span>...
+        [<span class="hljs-number">15</span>:<span class="hljs-number">54</span>:<span class="hljs-number">26</span>] Finished <span class="hljs-string">'clean:images'</span> after <span class="hljs-number">3.34</span> ms
+        [<span class="hljs-number">15</span>:<span class="hljs-number">54</span>:<span class="hljs-number">26</span>] Starting <span class="hljs-string">'images'</span>...
+        [<span class="hljs-number">15</span>:<span class="hljs-number">54</span>:<span class="hljs-number">26</span>] Finished <span class="hljs-string">'images'</span> after <span class="hljs-number">7.73</span> ms
+        [gulp] Using <span class="hljs-keyword">file</span> .<span class="hljs-regexp">/app/</span><span class="hljs-keyword">source</span><span class="hljs-regexp">/images/</span>compressed-images_compressed.png
+        [gulp] Using <span class="hljs-keyword">file</span> .<span class="hljs-regexp">/app/</span><span class="hljs-keyword">source</span><span class="hljs-regexp">/images/</span>retina-background-display.jpg
+        [gulp] Using <span class="hljs-keyword">file</span> .<span class="hljs-regexp">/app/</span><span class="hljs-keyword">source</span><span class="hljs-regexp">/images/</span>retina-background-display@<span class="hljs-number">2</span>x.jpg
+        [gulp] Using <span class="hljs-keyword">file</span> .<span class="hljs-regexp">/app/</span><span class="hljs-keyword">source</span><span class="hljs-regexp">/images/</span>social
+        [<span class="hljs-number">15</span>:<span class="hljs-number">54</span>:<span class="hljs-number">29</span>] gulp-imagemin: Minified <span class="hljs-number">3</span> images (saved <span class="hljs-number">200.02</span> kB - <span class="hljs-number">51</span>%)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - <span class="hljs-keyword">var</span> title = <span class="hljs-string">"App Resource Injection"</span>;
+  - <span class="hljs-keyword">var</span> name = 'app-resources';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      <span class="hljs-type">Using</span> <span class="hljs-comment">#[a(href="http://git.io/vTFsf") #[code gulp-inject]], we can</span>
+      automatically insert the required style <span class="hljs-keyword">and</span> script dependencies into our
+      default <span class="hljs-type">Jade</span> <span class="hljs-keyword">template</span>, then use
+      <span class="hljs-comment">#[a(href="http://git.io/vTFsn") #[code gulp-rev-replace]] to swap out the</span>
+      revisioned filenames.</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>See <code>app/server/mixins/tabbed-box.jade</code></p></div></div><div class="code"><div class="wrapper">    +tabbedBox(name, [<span class="hljs-string">'Gulp'</span>, <span class="hljs-string">'Before'</span>, <span class="hljs-string">'After'</span>])
+      +tabbedBoxPanel(name, <span class="hljs-string">'Gulp'</span>, <span class="hljs-string">'javascript'</span>, <span class="hljs-string">'false'</span>).
+        gulp.task(<span class="hljs-string">'dependencies:app'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{
+
+          <span class="hljs-comment">// - Grab the unrevved file names to inject</span>
+          <span class="hljs-comment">// -- Don't read the files to eke out a little extra performance</span>
+          <span class="hljs-keyword">var</span> styles = gulp.src([
+            <span class="hljs-string">'app/public/css/main.min.css'</span>,
+            <span class="hljs-string">'app/public/js/main.min.js'</span>
+          ], { read: <span class="hljs-literal">false</span> });
+
+          <span class="hljs-comment">// - Load the template files</span>
+          gulp.src(paths.templates.src)
+
+            <span class="hljs-comment">// - Inject the unrevved file into the template</span>
+            .pipe(inject(styles, { ignorePath: <span class="hljs-string">'app/public'</span> }))
+
+            <span class="hljs-comment">// - Replace with the revved filename</span>
+            .pipe(revreplace({
+              manifest: gulp.src(<span class="hljs-string">'app/public/rev-manifest.json'</span>),
+              replaceInExtensions: [<span class="hljs-string">'.jade'</span>]
+            }))
+
+            <span class="hljs-comment">// - Save the file</span>
+            .pipe(gulp.dest(paths.templates.destDir))
+
+            <span class="hljs-comment">// - Reload the browser</span>
+            .pipe(livereload());
+
+        });
+      +tabbedBoxPanel(name, <span class="hljs-string">'Before'</span>, <span class="hljs-string">'jade'</span>).
+        <span class="hljs-comment">//- # default.jade</span>
+        <span class="hljs-comment">//- ... truncated for brevity ...</span>
+        doctype html
+        html(lang=<span class="hljs-string">"en"</span>)
+          head
+
+            <span class="hljs-comment">//- ...</span>
+
+            <span class="hljs-comment">//- inject:css</span>
+            <span class="hljs-comment">//- endinject</span>
+
+          body
+
+            <span class="hljs-comment">//- ...</span>
+
+            <span class="hljs-comment">//- inject:js</span>
+            <span class="hljs-comment">//- endinject</span>
+      +tabbedBoxPanel(name, <span class="hljs-string">'After'</span>, <span class="hljs-string">'jade'</span>).
+        <span class="hljs-comment">//- # default.jade</span>
+        <span class="hljs-comment">//- ... truncated for brevity ...</span>
+        doctype html
+        html(lang=<span class="hljs-string">"en"</span>)
+          head
+
+            <span class="hljs-comment">//- ...</span>
+
+            <span class="hljs-comment">//- inject:css</span>
+            link(rel=<span class="hljs-string">"stylesheet"</span>, href=<span class="hljs-string">"/css/main.min-992289c6.css"</span>)
+            <span class="hljs-comment">//- endinject</span>
+
+          body
+
+            <span class="hljs-comment">//- ...</span>
+
+            <span class="hljs-comment">//- inject:js</span>
+            script(src=<span class="hljs-string">"/js/main.min-141cf8da.js"</span>)
+            <span class="hljs-comment">//- endinject</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - <span class="hljs-keyword">var</span> title = <span class="hljs-string">"App Dependency Injection"</span>;
+  - <span class="hljs-keyword">var</span> name = 'app-dependencies';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      <span class="hljs-type">Similar</span> to our app resources, we can inject stylesheets <span class="hljs-keyword">and</span> scripts <span class="hljs-keyword">for</span>
+      our <span class="hljs-type">Bower</span> dependencies into our <span class="hljs-type">Jade</span> <span class="hljs-keyword">template</span>.
+      <span class="hljs-comment">#[a(href="http://git.io/vTdch") #[code wiredep]] is specifically built to</span>
+      <span class="hljs-keyword">do</span> exactly that, so we'll use it here.</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>See <code>app/server/mixins/tabbed-box.jade</code></p></div></div><div class="code"><div class="wrapper">    +tabbedBox(name, [<span class="hljs-string">'Gulp'</span>, <span class="hljs-string">'Before'</span>, <span class="hljs-string">'After'</span>])
+      +tabbedBoxPanel(name, <span class="hljs-string">'Gulp'</span>, <span class="hljs-string">'javascript'</span>, <span class="hljs-string">'false'</span>).
+        gulp.task(<span class="hljs-string">'dependencies:bower'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{
+
+          <span class="hljs-comment">// - Use the `stream` support wiredep offers</span>
+          <span class="hljs-keyword">var</span> wiredep = <span class="hljs-built_in">require</span>(<span class="hljs-string">'wiredep'</span>).stream;
+
+          <span class="hljs-comment">// - Target which file(s) need to have dependencies included</span>
+          gulp.src(paths.templates.src)
+
+            <span class="hljs-comment">// - Wire all Bower dependencies into the source files</span>
+            .pipe(wiredep({
+              devDependencies: <span class="hljs-literal">true</span>,
+              ignorePath: <span class="hljs-string">'../../public'</span>
+            }))
+
+            <span class="hljs-comment">// - Save the file in the destination directory</span>
+            .pipe(gulp.dest(paths.templates.destDir))
+
+            <span class="hljs-comment">// - Reload the browser</span>
+            .pipe(livereload());
+
+        });
+      +tabbedBoxPanel(name, <span class="hljs-string">'Before'</span>, <span class="hljs-string">'jade'</span>).
+        <span class="hljs-comment">//- # default.jade</span>
+        <span class="hljs-comment">//- ... truncated for brevity ...</span>
+        doctype html
+        html(lang=<span class="hljs-string">"en"</span>)
+          head
+            <span class="hljs-comment">//- ...</span>
+          body
+            <span class="hljs-comment">//- ...</span>
+
+            <span class="hljs-comment">//- JavaScript dependencies from Bower, injected by wiredep</span>
+            <span class="hljs-comment">//- bower:js</span>
+            <span class="hljs-comment">//- endbower</span>
+      +tabbedBoxPanel(name, <span class="hljs-string">'After'</span>, <span class="hljs-string">'jade'</span>).
+        <span class="hljs-comment">//- # default.jade</span>
+        <span class="hljs-comment">//- ... truncated for brevity ...</span>
+        doctype html
+        html(lang=<span class="hljs-string">"en"</span>)
+          head
+            <span class="hljs-comment">//- ...</span>
+          body
+            <span class="hljs-comment">//- ...</span>
+
+            <span class="hljs-comment">//- JavaScript dependencies from Bower, injected by wiredep</span>
+            <span class="hljs-comment">//- bower:js</span>
+            script(src=<span class="hljs-string">'/vendor/es6-shim/es6-shim.js'</span>)
+            script(src=<span class="hljs-string">'/vendor/visionmedia-debug/dist/debug.js'</span>)
+            <span class="hljs-comment">//- endbower</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - var title = <span class="hljs-string">"Remove Old and Unused Files"</span>;
+  - var <span class="hljs-property">name</span> = 'clean';
+
+  .example(data-<span class="hljs-property">name</span>=title)
+    h2= title
+
+    p.
+      Before <span class="hljs-property">running</span> a Gulp task, old files should be deleted. This <span class="hljs-keyword">isn't</span>
+      strictly necessary, <span class="hljs-keyword">but</span> <span class="hljs-keyword">it</span>'s very helpful <span class="hljs-keyword">to</span> make sure you don't have
+      unused files <span class="hljs-keyword">or</span> old versions introducing project size bloat <span class="hljs-keyword">or</span> subtle
+      bugs (e.g. <span class="hljs-keyword">if</span> a task doesn't work <span class="hljs-keyword">but</span> <span class="hljs-keyword">the</span> old <span class="hljs-property">version</span> <span class="hljs-keyword">is</span> there, you may
+      <span class="hljs-keyword">not</span> immediately notice a problem).
+    p.
+      This <span class="hljs-keyword">is</span> easy <span class="hljs-keyword">to</span> do using <span class="hljs-comment">#[a(href="http://git.io/vTFLa") #[code del]].</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>See <code>app/server/mixins/tabbed-box.jade</code></p></div></div><div class="code"><div class="wrapper">    +tabbedBox(name, [<span class="hljs-string">'gulp.task(\'clean:styles\')'</span>])
+      +tabbedBoxPanel(name, <span class="hljs-string">'gulp.task(\'clean:styles\')'</span>, <span class="hljs-string">'javascript'</span>, <span class="hljs-string">'false'</span>).
+        <span class="hljs-comment">// To empty directories before processing, we use [`del`](http://git.io/vTFLa).</span>
+        <span class="hljs-keyword">var</span> del = <span class="hljs-built_in">require</span>(<span class="hljs-string">'del'</span>);
+
+        <span class="hljs-comment">// - Remove the processed stylesheets</span>
+        gulp.task(<span class="hljs-string">'clean:styles'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{
+
+          <span class="hljs-comment">// `del` is not a Gulp plugin, so we don't pipe files into it.</span>
+          del([
+            <span class="hljs-string">'app/public/css/*.*'</span>,
+            <span class="hljs-string">'app/public/maps/**.css.map'</span>,
+            <span class="hljs-string">'app/public/css/examples/*.*'</span>
+          ]);
+
+        });</div></div></div></div></body></html>

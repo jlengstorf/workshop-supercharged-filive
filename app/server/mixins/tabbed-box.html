@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en"><head><title>app/server/mixins/tabbed-box</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../"><meta name="groc-document-path" content="app/server/mixins/tabbed-box"><meta name="groc-project-path" content="app/server/mixins/tabbed-box.jade"><meta name="groc-github-url" content="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow/blob/master/app/server/mixins/tabbed-box.jade">app/server/mixins/tabbed-box.jade</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="jade-mixins">Jade Mixins</h1>
+<p>These mixins made it a little more manageable to deal with adding tabbed
+boxes for previewing code input and output.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> mixin tabbedBox</span></p>
+<p>Adds the wrapper and tabs for a tabbed box</p>
+<p>This solution would be a lot cooler if Jade allowed dynamic includes, but
+alas, it does not. As a result, this is a little rickety to implement:</p>
+<p>Example:</p>
+<pre><code>- var labels = [&#39;Input&#39;, &#39;Output&#39;];
++tabbedBox(name, labels)
+  +tabbedBoxPanel(name, labels[0], &#39;javascript&#39;, &#39;false&#39;)
+    include ../../source/scripts/examples/esnext.js
+  +tabbedBoxPanel(name, labels[1], &#39;javascript&#39;)
+    include ../../public/js/examples/esnext.js</code></pre>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>name must be a String.</strong><br/>(A unique name for tab IDs)</p>
+</li>
+<li><p><strong>labels must be an Array of Strings.</strong><br/>(An array of tab labels)</p>
+</li>
+</ul>
+<p><strong>Returns a String</strong><br/>(HTML markup to display)</p></div></div><div class="code"><div class="wrapper">mixin tabbedBox(<span class="hljs-property">name</span>, labels)
+  - var <span class="hljs-command">count</span> = <span class="hljs-number">0</span>;
+  .code-toggle
+    ul.code-toggle__tablist(role=<span class="hljs-string">"tablist"</span>)
+      each label <span class="hljs-keyword">in</span> labels
+        - var selected = <span class="hljs-command">count</span>++ === <span class="hljs-number">0</span> ? '<span class="hljs-constant">true</span>' : '<span class="hljs-constant">false</span>';
+        +tabbedBoxTab(<span class="hljs-property">name</span>, label, selected)
+    <span class="hljs-keyword">if</span> block
+      block</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> mixin tabbedBoxTab</span></p>
+<p>Creates a tab for the tabbed box</p>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>name must be a String.</strong><br/>(Tabbed box&#39;s unique name for use in the ID)</p>
+</li>
+<li><p><strong>label must be a String.</strong><br/>(Label for the tab)</p>
+</li>
+<li><p><strong>selected must be a String.</strong><br/>(Whether or not the tab is selected by default)</p>
+</li>
+</ul>
+<p><strong>Returns a String</strong><br/>(HTML for the tab)</p></div></div><div class="code"><div class="wrapper">mixin tabbedBoxTab(name, label, selected)
+ -<span class="ruby"> selected = selected || <span class="hljs-string">'false'</span>;
+</span>      li.code-toggle__tab(
+        id="tab_#{<span class="ruby">name}</span>-#{<span class="ruby">label.toLowerCase()}</span>"
+        role="tab"
+        aria-controls="panel_#{<span class="ruby">name}</span>-#{<span class="ruby">label.toLowerCase()}</span>"
+        aria-selected="#{<span class="ruby">selected}</span>"
+      )= label</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> mixin tabbedBoxPanel</span></p>
+<p>Creates a panel to correspond with a tab</p>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>name must be a String.</strong><br/>(Tabbed box&#39;s unique name for use in the ID)</p>
+</li>
+<li><p><strong>label must be a String.</strong><br/>(Label for the tab that controls the panel)</p>
+</li>
+<li><p><strong>type must be a String.</strong><br/>(Sets language for <a href="http://prismjs.com/">Prism</a>)</p>
+</li>
+<li><p><strong>hidden must be a String.</strong><br/>(Whether or not the panel is hidden by default)</p>
+</li>
+</ul>
+<p><strong>Returns a String</strong><br/>(HTML for the panel)</p></div></div><div class="code"><div class="wrapper">mixin tabbedBoxPanel(name, label, <span class="hljs-class"><span class="hljs-keyword">type</span>, <span class="hljs-title">hidden</span>)
+</span>  - <span class="hljs-class"><span class="hljs-keyword">type</span> =</span> <span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">||</span> '<span class="hljs-title">css</span>';</span>
+  - hidden = hidden || <span class="hljs-literal">true</span>;
+  .code-toggle__panel(
+    id=<span class="hljs-string">"panel_#{name}-#{label.toLowerCase()}"</span>
+    role=<span class="hljs-string">"tabpanel"</span>
+    aria-labelled-by=<span class="hljs-string">"tab_#{name}-#{label.toLowerCase()}"</span>
+    aria-hidden=<span class="hljs-string">"#{hidden}"</span>
+  )
+    pre(<span class="hljs-class"><span class="hljs-keyword">class</span>=</span><span class="hljs-string">"language-"</span> + <span class="hljs-class"><span class="hljs-keyword">type</span>)
+</span>      code
+        <span class="hljs-keyword">if</span> block
+          block</div></div></div></div></body></html>

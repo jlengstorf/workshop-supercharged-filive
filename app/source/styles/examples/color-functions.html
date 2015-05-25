@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en"><head><title>app/source/styles/examples/color-functions</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../../"><meta name="groc-document-path" content="app/source/styles/examples/color-functions"><meta name="groc-project-path" content="app/source/styles/examples/color-functions.css"><meta name="groc-github-url" content="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow"><link rel="stylesheet" type="text/css" media="all" href="../../../../assets/style.css"><script type="text/javascript" src="../../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow/blob/master/app/source/styles/examples/color-functions.css">app/source/styles/examples/color-functions.css</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>Requires:</p>
+<ul>
+<li>plugins from previous examples</li>
+<li><a href="http://git.io/vUB2I"><code>gulp-cssnext</code></a> to enable future CSS syntax</li>
+</ul></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Define colors to keep them all in one place</li>
+</ul></div></div><div class="code"><div class="wrapper">$<span class="hljs-rule"><span class="hljs-attribute">mainColor</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#33c</span></span></span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Define measurements for the same reason</li>
+</ul></div></div><div class="code"><div class="wrapper">$<span class="hljs-rule"><span class="hljs-attribute">boxDimension</span>:<span class="hljs-value"> <span class="hljs-number">100px</span></span></span>;
+
+<span class="hljs-class">.color-blocks</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> flex</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">justify-content</span>:<span class="hljs-value"> space-between</span></span>;
+}</span>
+
+<span class="hljs-class">.color-block</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> relative</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">flex</span>:<span class="hljs-value"> <span class="hljs-number">1</span> $boxDimension</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> $boxDimension</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> $boxDimension</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> $boxDimension</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> solid <span class="hljs-function">color</span>( $mainColor <span class="hljs-function">lightness</span>(- <span class="hljs-number">50%</span>) )</span></span>;
+</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>What we&#39;ll be changing </p></div></div><div class="code"><div class="wrapper">  &amp;<span class="hljs-class">.default</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">background-color</span>:<span class="hljs-value"> $mainColor</span></span>;
+  }</span>
+
+  &amp;<span class="hljs-class">.alpha</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">background-color</span>:<span class="hljs-value"> <span class="hljs-function">color</span>( $mainColor <span class="hljs-function">alpha</span>(- <span class="hljs-number">50%</span>) )</span></span>;
+  }</span>
+
+  &amp;<span class="hljs-class">.grayscale</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">background-color</span>:<span class="hljs-value"> <span class="hljs-function">color</span>( $mainColor <span class="hljs-function">saturation</span>(- <span class="hljs-number">100%</span>) )</span></span>;
+  }</span>
+
+  &amp;<span class="hljs-class">.hue</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">background-color</span>:<span class="hljs-value"> <span class="hljs-function">color</span>( $mainColor <span class="hljs-function">hue</span>(- <span class="hljs-number">180deg</span>) )</span></span>;
+  }</span>
+
+  &amp;<span class="hljs-class">.brighter</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">background-color</span>:<span class="hljs-value"> <span class="hljs-function">color</span>( $mainColor <span class="hljs-function">whiteness</span>(+ <span class="hljs-number">30%</span>) <span class="hljs-function">saturation</span>(+ <span class="hljs-number">100%</span>) )</span></span>;
+  }</span>
+}</div></div></div></div></body></html>

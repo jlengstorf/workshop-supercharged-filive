@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en"><head><title>app/source/scripts/main</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../"><meta name="groc-document-path" content="app/source/scripts/main"><meta name="groc-project-path" content="app/source/scripts/main.js"><meta name="groc-github-url" content="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow/blob/master/app/source/scripts/main.js">app/source/scripts/main.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="mainjs">main.js</h1>
+<p>Scripts for the app. We&#39;re using some <a href="http://bit.ly/1HAPes1">ES6</a> features
+in here, which have to run through a <a href="http://bit.ly/1F2iiS8">transpiler</a> to
+ensure they&#39;ll work on all but the bleeding-edge of browsers. (See
+<code>gulpfile.js</code> for an idea of how we&#39;re handling that automatically here.)</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>ES6-style <a href="http://bit.ly/1F2mT6T">IIFE</a> to keep us scoped properly.</p></div></div><div class="code"><div class="wrapper">(() =&gt; {
+  <span class="hljs-string">'use strict'</span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Create some loggers for easy console control.</p>
+<p>For standard logging, open the console and run:</p>
+<pre><code>debug.enable(&#39;sc:log&#39;);</code></pre>
+<p>For verbose logging, use:</p>
+<pre><code>debug.enable(&#39;sc:log,sc:verbose&#39;);</code></pre>
+<p>or:</p>
+<pre><code>debug.enable(&#39;sc:*&#39;);</code></pre>
+<p>For more information, see the
+<a href="http://git.io/vThJY"><code>debug</code> README on GitHub</a>.</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">const</span> log = debug(<span class="hljs-string">'sc:log'</span>);
+  <span class="hljs-keyword">const</span> vLog = debug(<span class="hljs-string">'sc:verbose'</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="add-an-event-listener-to-handle-the-code-view-tab-boxes">Add an event listener to handle the code view tab boxes</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper">  <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'click'</span>, (event) =&gt; {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Create a pointer to the clicked element</li>
+</ul></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">const</span> tab = event.target;
+    vLog(<span class="hljs-string">`event.target: <span class="hljs-subst">${tab.classList.toString()}</span>`</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="ensure-the-clicked-element-was-a-tab">Ensure the clicked element was a tab</h3></div></div></div><div class="segment"><div class="code"><div class="wrapper">    <span class="hljs-keyword">if</span> (tab.classList.contains(<span class="hljs-string">'code-toggle__tab'</span>)) {
+
+      vLog(<span class="hljs-string">'The clicked element was a tab; continuing...'</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Get the panel ID from the clicked tab, then select it</li>
+</ul></div></div><div class="code"><div class="wrapper">      <span class="hljs-keyword">const</span> panelID = tab.getAttribute(<span class="hljs-string">'aria-controls'</span>);
+      <span class="hljs-keyword">const</span> panel = <span class="hljs-built_in">document</span>.getElementById(panelID);
+
+      vLog(<span class="hljs-string">`panelID: <span class="hljs-subst">${panelID}</span>`</span>);
+      vLog(<span class="hljs-string">`#<span class="hljs-subst">${panelID}</span> <span class="hljs-subst">${!!panel ? 'was' : 'was not'}</span> found in the DOM`</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="find-the-container">Find the container</h3>
+<ul>
+<li>Create variables for use in the <code>while</code> loop</li>
+</ul></div></div><div class="code"><div class="wrapper">      <span class="hljs-keyword">let</span> el = tab;
+      <span class="hljs-keyword">let</span> container = <span class="hljs-literal">false</span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Run a loop until the container is found or no parent node is found</li>
+</ul></div></div><div class="code"><div class="wrapper">      <span class="hljs-keyword">while</span> (el &amp;&amp; el.parentNode &amp;&amp; !container) {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Climb one step up the DOM tree</li>
+</ul></div></div><div class="code"><div class="wrapper">        el = el.parentNode;
+
+        vLog(<span class="hljs-string">`Parent element class list: <span class="hljs-subst">${el.classList.toString()}</span>`</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Check if the current element is the main container</li>
+</ul></div></div><div class="code"><div class="wrapper">        <span class="hljs-keyword">if</span> (el.classList &amp;&amp; el.classList.contains(<span class="hljs-string">'code-toggle'</span>)) {
+
+          vLog(<span class="hljs-string">'Found the container element; continuing...'</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>If so, store it in <code>container</code></li>
+</ul></div></div><div class="code"><div class="wrapper">          container = el;
+
+        }
+
+      }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="change-the-tab-and-panel-states">Change the tab and panel states</h3>
+<ul>
+<li>Only continue if a panel and container were found</li>
+</ul></div></div><div class="code"><div class="wrapper">      <span class="hljs-keyword">if</span> (panel &amp;&amp; container) {
+
+        vLog(<span class="hljs-string">'A panel and container were found; continuing...'</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Select all the tabs and all the panels in separate variables</li>
+</ul></div></div><div class="code"><div class="wrapper">        <span class="hljs-keyword">const</span> tabsObj = container.querySelectorAll(<span class="hljs-string">'.code-toggle__tab'</span>);
+        <span class="hljs-keyword">const</span> panelsObj = container.querySelectorAll(<span class="hljs-string">'.code-toggle__panel'</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Convert <code>tabsObj</code> &amp; <code>panelsObj</code> to arrays from array-like objects</li>
+</ul></div></div><div class="code"><div class="wrapper">        <span class="hljs-keyword">const</span> tabs = <span class="hljs-built_in">Array</span>.from(tabsObj);
+        <span class="hljs-keyword">const</span> panels = <span class="hljs-built_in">Array</span>.from(panelsObj);
+
+        vLog(<span class="hljs-string">`Found <span class="hljs-subst">${tabs.length}</span> tabs and <span class="hljs-subst">${panels.length}</span> panels.`</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Deselect all tabs to start</li>
+</ul></div></div><div class="code"><div class="wrapper">        tabs.map((currentTab) =&gt; {
+          vLog(<span class="hljs-string">`<span class="hljs-subst">${currentTab.getAttribute('id')}</span> deselected.`</span>);
+          currentTab.setAttribute(<span class="hljs-string">'aria-selected'</span>, <span class="hljs-literal">false</span>);
+        });</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Hide all panels next</li>
+</ul></div></div><div class="code"><div class="wrapper">        panels.map((currentPanel) =&gt; {
+          vLog(<span class="hljs-string">`<span class="hljs-subst">${currentPanel.getAttribute('id')}</span> hidden.`</span>);
+          currentPanel.setAttribute(<span class="hljs-string">'aria-hidden'</span>, <span class="hljs-literal">true</span>);
+        });</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Output a message in the console</li>
+</ul></div></div><div class="code"><div class="wrapper">        log(<span class="hljs-string">`Clicked <span class="hljs-subst">${tab.getAttribute('id')}</span>; showing <span class="hljs-subst">${panelID}</span>.`</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Then set the clicked tab and corresponding panel to active</li>
+</ul></div></div><div class="code"><div class="wrapper">        tab.setAttribute(<span class="hljs-string">'aria-selected'</span>, <span class="hljs-string">'true'</span>);
+        panel.setAttribute(<span class="hljs-string">'aria-hidden'</span>, <span class="hljs-string">'false'</span>);
+
+      }
+
+    }
+
+  });
+}).call();</div></div></div></div></body></html>

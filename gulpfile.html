@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="en"><head><title>gulpfile</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="gulpfile"><meta name="groc-project-path" content="gulpfile.js"><meta name="groc-github-url" content="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow/blob/master/gulpfile.js">gulpfile.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="gulpfilejs">gulpfile.js</h1>
+<p>Task runners are designed to handle the boring, repetitive jobs that we, as
+easily-bored, often-busy developers, tend to forget.</p>
+<p>Fortunately, using task runners is pretty easy, and once it&#39;s set up, <em>you
+never need to think about it again.</em></p>
+<p><strong><em>Build once, win forever.</em></strong></p>
+<p><strong>NOTE:</strong> Don&#39;t forget to install the required plugins:</p>
+<pre><code>npm install --save-dev gulp</code></pre>
+<p><code>--save-dev</code> should be used for any plugins only used during development.
+(If the site runs on WordPress, for example, Gulp will likely never run in
+production, so all the plugins should be saved for development only.)</p>
+<p>To install a module that&#39;s used in the app always, use <code>--save</code> instead.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="set-up-and-configuration">Set Up and Configuration</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="automatically-load-gulp-plugins">Automatically load Gulp plugins</h3></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-built_in">require</span>(<span class="hljs-string">'matchdep'</span>).filterDev(<span class="hljs-string">'gulp*'</span>).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( module )</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Remove the <code>gulp-</code> prefix &amp; hyphens for better module var names.</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">var</span> module_name = <span class="hljs-built_in">module</span>.replace(<span class="hljs-regexp">/^gulp-/</span>, <span class="hljs-string">''</span>).replace(<span class="hljs-regexp">/-/</span>, <span class="hljs-string">''</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Then require the module.</p></div></div><div class="code"><div class="wrapper">  global[module_name] = <span class="hljs-built_in">require</span>(<span class="hljs-built_in">module</span>);
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="define-filepaths">Define filepaths</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>For easy reference, declare all filepaths in one place.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> paths = {
+  styles: {
+    src: <span class="hljs-string">'app/source/styles/main.css'</span>,
+    destDir: <span class="hljs-string">'app/public/css/'</span>,
+    destFile: <span class="hljs-string">'main.min.css'</span>,</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Examples are compiled separately only for reference.</p></div></div><div class="code"><div class="wrapper">    examplesSrc: [
+      <span class="hljs-string">'!app/source/styles/examples/compressed.css'</span>,
+      <span class="hljs-string">'app/source/styles/examples/**/*.css'</span>
+    ],
+    examplesDir: <span class="hljs-string">'app/public/css/examples/'</span>,
+    examplesCompressedSrc: <span class="hljs-string">'app/source/styles/examples/compressed.css'</span>,</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Watch all CSS files for better LiveReload functionality.</p></div></div><div class="code"><div class="wrapper">    watch: <span class="hljs-string">'app/source/styles/**/*.css'</span>
+  },
+  scripts: {
+    src: <span class="hljs-string">'app/source/scripts/main.js'</span>,
+    destDir: <span class="hljs-string">'app/public/js/'</span>,
+    examplesDir: <span class="hljs-string">'app/public/js/examples/'</span>,
+    examplesSrcDir: <span class="hljs-string">'app/source/scripts/examples/'</span>
+  },
+  templates: {
+    src: <span class="hljs-string">'app/server/layouts/default.jade'</span>,
+    destDir: <span class="hljs-string">'app/server/layouts'</span>
+  },
+  images: {
+    src: <span class="hljs-string">'app/source/images/**/*'</span>,
+    destDir: <span class="hljs-string">'app/public/images/'</span>,
+    retinaSrc: <span class="hljs-string">'app/source/images/**/*@2x.{jpg,png}'</span>,
+    retinaDestDir: <span class="hljs-string">'app/source/images/'</span>,
+    watch: [ <span class="hljs-string">'app/source/images/**/*'</span>, <span class="hljs-string">'!app/source/images/**/*@2x.{jpg,png}'</span> ]
+  }
+};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="create-reusable-gulp-pipes-for-shared-functionality">Create reusable Gulp pipes for shared functionality</h3>
+<p>The revisioning process is near-identical for both styles and scripts — only
+the file path changes — so we can keep our code <a href="http://bit.ly/1LylcUn">DRY</a>
+by making this step into a reusable function.</p>
+<p><a href="http://git.io/vT9CR"><code>gulp-lazypipe</code></a> makes this function possible by
+giving us the ability to create an &quot;immutable, lazily-initialized pipeline&quot;,
+which more or less means we can set up reusable stream handling.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Load the plugin into a variable</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> lazypipe = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lazypipe'</span>);</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> function addFileRevision</span></p>
+<p>A function that abstracts the creation of revisioned filenames and source
+maps for shared use by both style and script tasks.</p>
+<p>This function will:</p>
+<ul>
+<li>Create a <a href="http://git.io/vUBVd">revisioned</a> filename</li>
+<li>Write the sourcemap for easier debugging in the console</li>
+<li>Save the new CSS file</li>
+<li>Write the manifest for mapping revisioned files<ul>
+<li>NOTE: To get merge working, get really explicit (see issue
+<a href="https://github.com/sindresorhus/gulp-rev/issues/83">#83</a>)</li>
+</ul>
+</li>
+<li>Save the manifest in the public folder</li>
+</ul>
+<p><strong>NOTE:</strong> Do NOT call the functions when using <code>lazypipe</code></p>
+<p>For example,</p>
+<pre><code>lazypipe()
+  .pipe(rev())</code></pre>
+<p>will cause an error.</p>
+<p>However,</p>
+<pre><code>lazypipe()
+  .pipe(rev)</code></pre>
+<p>will not. Note how <code>rev</code> was passed <em>without being called</em>.</p>
+<p>Parameters:</p>
+<ul>
+<li><strong>dest must be a String.</strong><br/>(The path to which files should be saved)</li>
+</ul>
+<p><strong>Returns a Function</strong><br/>(a stream handler)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addFileRevision</span><span class="hljs-params">( dest )</span> </span>{
+
+  <span class="hljs-keyword">return</span> lazypipe()
+
+    .pipe(rev)
+
+    .pipe(sourcemaps.write, <span class="hljs-string">'../maps'</span>)
+
+    .pipe(gulp.dest, dest)
+
+    .pipe(rev.manifest, <span class="hljs-string">'app/public/rev-manifest.json'</span>, {
+      base: process.cwd()+<span class="hljs-string">'/app/public'</span>,
+      merge: <span class="hljs-literal">true</span>
+    })
+
+    .pipe(gulp.dest, <span class="hljs-string">'app/public'</span>);
+
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="stylesheet-processing">Stylesheet Processing</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="load-the-required-postcss-plugins">Load the required PostCSS plugins</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Since the processors will be used in multiple tasks, we&#39;re making them
+available to the whole script.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> processors = [</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><a href="http://git.io/vUQ0p"><code>postcss-import</code></a> for <code>@import</code> support</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="hljs-built_in">require</span>(<span class="hljs-string">'postcss-import'</span>)({ glob: <span class="hljs-literal">true</span> }),</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><a href="http://git.io/vUQes"><code>postcss-simple-extend</code></a> for extendable classes</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="hljs-built_in">require</span>(<span class="hljs-string">'postcss-simple-extend'</span>),</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><a href="http://git.io/vUBKn"><code>postcss-mixins</code></a> allows Sass-style mixins</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="hljs-built_in">require</span>(<span class="hljs-string">'postcss-mixins'</span>),</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><a href="http://git.io/vUBoT"><code>postcss-nested</code></a> allows nested selectors</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="hljs-built_in">require</span>(<span class="hljs-string">'postcss-nested'</span>),</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><a href="http://git.io/vUBKX"><code>postcss-simple-vars</code></a> allows Sass-style vars</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="hljs-built_in">require</span>(<span class="hljs-string">'postcss-simple-vars'</span>),</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><a href="http://git.io/vUHZs"><code>postcss-at2x</code></a> for high-density backgrounds</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="hljs-built_in">require</span>(<span class="hljs-string">'postcss-at2x'</span>)(),
+
+];</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="process-the-stylesheet">Process the stylesheet</h3>
+<p>This task will do a bunch of our boring tasks — adding prefixes, minifying,
+creating source maps, etc. — all without any additional work from us.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>To keep things tidy, require the <code>clean:styles</code> task before running.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'styles'</span>, [<span class="hljs-string">'clean:styles'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Load our lazypiped file revision handling</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">var</span> createRevision = addFileRevision(paths.styles.destDir);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Target the source CSS files</li>
+</ul></div></div><div class="code"><div class="wrapper">  gulp.src(paths.styles.src)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Initialize <a href="http://git.io/vUBaV">sourcemaps</a></li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(sourcemaps.init())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Run our given <a href="http://git.io/vUBaL">PostCSS</a> processors (loaded above)</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(postcss(processors))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Use <a href="http://git.io/vUB2I"><code>gulp-cssnext</code></a> to enable future CSS syntax</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(cssnext())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><a href="http://git.io/vUBVI"><code>gulp-cssnano</code></a> optimizes CSS for smaller files</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(cssnano())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><a href="https://github.com/hparra/gulp-rename">Rename</a> the files</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(rename(paths.styles.destFile))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Save the new CSS file</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(gulp.dest(paths.styles.destDir))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Create a revisioned version of the file</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(createRevision());
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="check-for-browser-support-issues">Check for browser support issues</h3>
+<p>Using <a href="http://git.io/vTdu5"><code>doiuse</code></a>, we can bounce our stylesheets off the
+<a href="http://caniuse.com/">caniuse.com</a> database and see which features we&#39;re
+using that aren&#39;t supported in older browsers. It doesn&#39;t remove the need to
+do cross-browser testing, but it gives us a great starting point to get it
+done quickly and thoroughly.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><strong>NOTE:</strong> This task isn&#39;t automatic. Run with <code>gulp styles:browser-support</code>.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'styles:browser-support'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{
+
+  <span class="hljs-keyword">var</span> doiuse = <span class="hljs-built_in">require</span>(<span class="hljs-string">'doiuse'</span>)({
+    browsers:[<span class="hljs-string">'ie &gt;= 10, &gt; 1%, last 2 versions'</span>],
+    onFeatureUsage: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(usageInfo)</span> </span>{
+      <span class="hljs-built_in">console</span>.log(usageInfo.message.replace(__dirname, <span class="hljs-string">''</span>));
+    }
+  });
+
+  gulp.src(paths.styles.src)
+
+    .pipe(postcss(processors))
+
+    .pipe(cssnext())
+
+    .pipe(postcss([doiuse]));
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="javascript-processing">JavaScript Processing</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="process-scripts">Process scripts</h3>
+<p>This task checks for obvious code errors, enforces a coding style guide,
+concatenates all the app&#39;s scripts together, minifies the output, adds a
+source map, and adds a revision hash to ensure cache busting. It also
+transpiles ES6 syntax into ES5 syntax so that we can code in The Future™.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>To keep things tidy, require <code>clean:scripts</code> task before running.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'scripts'</span>, [<span class="hljs-string">'clean:scripts'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{
+
+  <span class="hljs-keyword">var</span> createRevision = addFileRevision(paths.scripts.destDir);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Target the source JS files</li>
+</ul></div></div><div class="code"><div class="wrapper">  gulp.src(paths.scripts.src)
+
+    .pipe(using())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Lint (&amp; fix) scripts using <a href="http://git.io/v8y5cA">Airbnb&#39;s styleguide</a></li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(jscs({
+      preset: <span class="hljs-string">'airbnb'</span>,
+      esnext: <span class="hljs-literal">true</span>
+    }))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>-- If we get an error, log it but don&#39;t crash</p></div></div><div class="code"><div class="wrapper">      .on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( error )</span> </span>{ <span class="hljs-built_in">console</span>.log(error.message); })</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Create a source map for easier development</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(sourcemaps.init())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Concatenate all scripts into one file</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(concat(<span class="hljs-string">'main.js'</span>))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Use Babel to transpile ES6 syntax to ES5 for browser support</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(babel())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Compress the output for smaller file size</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(uglify())
+
+    .pipe(rename({ suffix: <span class="hljs-string">'.min'</span> }))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Save the new JS file</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(gulp.dest(paths.scripts.destDir))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Create a revisioned version of the file</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(createRevision());
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="automatically-fix-coding-style-guide-errors">Automatically fix coding style guide errors</h3>
+<p><a href="http://jscs.info/">JSCS</a> has a very cool feature that allows us to
+<em>automatically</em> fix style guide issues in code. Things like indentation and
+semicolons — plus <em>much</em> more — can be fixed by JSCS without any additional
+work on our part.</p>
+<p><strong>NOTE:</strong> This task is non-destructive. Upon running, a new file with the
+suffix <code>.fixed</code> will be created that contains the modified code.</p>
+<p><strong>NOTE:</strong> Fixing code styles could easily be incorporated into the main
+scripts workflow. It probably wouldn&#39;t cause any issues. However, my
+preference is to manually fix problems, which helps me correct bad habits
+in my coding faster.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><strong>NOTE:</strong> This task isn&#39;t automatic. Run with <code>gulp scripts:fix</code></p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'scripts:fix'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( )</span> </span>{
+
+  gulp.src(paths.scripts.src)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Set <code>fix</code> to <code>true</code> so code style issues are automatically fixed</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(jscs({
+      preset: <span class="hljs-string">'airbnb'</span>,
+      esnext: <span class="hljs-literal">true</span>,
+      fix: <span class="hljs-literal">true</span>
+    }))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Add a suffix for quick comparison between the original and fixed files</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(rename({ suffix: <span class="hljs-string">'.fixed'</span> }))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Save the fixed file</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(gulp.dest(<span class="hljs-string">'app/source/scripts/'</span>));
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="image-optimization">Image Optimization</h1>
+<p>Compress images using <a href="http://git.io/vUN9E"><code>gulp-imagemin</code></a> to speed up
+your site a bit.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'images'</span>, [<span class="hljs-string">'clean:images'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><a href="http://git.io/vUN9x">PNGQuant</a> is better at PNG compression.</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">var</span> pngquant = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imagemin-pngquant'</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Target uncompressed image files</li>
+</ul></div></div><div class="code"><div class="wrapper">  gulp.src(paths.images.src)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Only compress files that are new or have changed</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(changed(paths.images.destDir))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>For debugging only: show which files are being processed</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(using())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Compress the images</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(imagemin({
+      progressive: <span class="hljs-literal">true</span>,
+      use: [ pngquant() ]
+    }))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Save the compressed images</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(gulp.dest(paths.images.destDir));
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="deletion-of-old-and-unused-files">Deletion of Old and Unused Files</h1>
+<p>Before running a Gulp task, old files should be deleted. This isn&#39;t strictly
+necessary, but it&#39;s very helpful to make sure you don&#39;t have unused files
+or old versions introducing project size bloat or subtle bugs (e.g. if a
+task doesn&#39;t work but the old version is there, you may not immediately
+notice a problem).</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>To empty directories before processing, we use <a href="http://git.io/vTFLa"><code>del</code></a>.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> del = <span class="hljs-built_in">require</span>(<span class="hljs-string">'del'</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Remove the processed stylesheets</li>
+</ul></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'clean:styles'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>del</code> is not a Gulp plugin, so we don&#39;t pipe files into it.</p></div></div><div class="code"><div class="wrapper">  del([
+    <span class="hljs-string">'app/public/css/*.*'</span>,
+    <span class="hljs-string">'app/public/maps/**.css.map'</span>,
+    <span class="hljs-string">'app/public/css/examples/*.*'</span>
+  ]);
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Remove processed images</li>
+</ul></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'clean:images'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>del</code> is not a Gulp plugin, so we don&#39;t pipe files into it.</p></div></div><div class="code"><div class="wrapper">  del([
+
+    <span class="hljs-string">'app/public/images/**.*'</span>,</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This image needs to be uncompressed, so we can&#39;t delete it.</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-string">'!app/public/images/compressed-images_uncompressed.png'</span>
+
+  ]);
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Remove processed scripts</li>
+</ul></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'clean:scripts'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>del</code> is not a Gulp plugin, so we don&#39;t pipe files into it.</p></div></div><div class="code"><div class="wrapper">  del([
+    <span class="hljs-string">'app/public/js/**.*'</span>,
+    <span class="hljs-string">'app/public/maps/**.js.map'</span>
+  ]);
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="dependency-management">Dependency Management</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="use-revisioned-filenames-to-avoid-caching-issues">Use revisioned filenames to avoid caching issues</h3>
+<p>To avoid having a &quot;source&quot; and &quot;build&quot; template, which doesn&#39;t make a lot
+of sense in the case of our Jade templates, we need to create an unrevved
+(e.g. <code>file.min.css</code>) include in the template that can later be replaced by
+<code>gulp-rev-replace</code> to use a revved (e.g. <code>file.min-0fa123be.css</code>) include.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'dependencies:app'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Grab the unrevved file names to inject
+-- Don&#39;t read the files to eke out a little extra performance</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">var</span> styles = gulp.src([
+    <span class="hljs-string">'app/public/css/main.min.css'</span>,
+    <span class="hljs-string">'app/public/js/main.min.js'</span>
+  ], { read: <span class="hljs-literal">false</span> });</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Load the template files</li>
+</ul></div></div><div class="code"><div class="wrapper">  gulp.src(paths.templates.src)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Inject the unrevved file into the template</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(inject(styles, { ignorePath: <span class="hljs-string">'app/public'</span> }))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Replace with the revved filename</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(revreplace({
+      manifest: gulp.src(<span class="hljs-string">'app/public/rev-manifest.json'</span>),
+      replaceInExtensions: [<span class="hljs-string">'.jade'</span>]
+    }))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Save the file</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(gulp.dest(paths.templates.destDir))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Reload the browser</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(livereload());
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="automatically-inject-bower-dependencies">Automatically inject Bower dependencies</h3>
+<p>With <a href="http://git.io/vTdch"><code>wiredep</code></a>, we can automatically inject any files
+that our Bower dependencies require.</p>
+<p><strong>NOTE:</strong> Using <code>watch</code>, we can make sure dependencies are always up-to-date
+as changes are made. Uninstalled dependencies are removed, newly installed
+dependencies are added, all as we run the appropriate <code>bower</code> commands.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'dependencies:bower'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Use the <code>stream</code> support wiredep offers</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">var</span> wiredep = <span class="hljs-built_in">require</span>(<span class="hljs-string">'wiredep'</span>).stream;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Target which file(s) need to have dependencies included</li>
+</ul></div></div><div class="code"><div class="wrapper">  gulp.src(paths.templates.src)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Wire all Bower dependencies into the source files</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(wiredep({ devDependencies: <span class="hljs-literal">true</span>, ignorePath: <span class="hljs-string">'../../public'</span> }))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Save the file in the destination directory</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(gulp.dest(paths.templates.destDir))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Reload the browser</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(livereload());
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="automatically-run-tasks-when-files-are-changed">Automatically Run Tasks When Files Are Changed</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="watch-files-for-changes-to-automatically-update-them">Watch files for changes to automatically update them</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>With <a href="http://git.io/vThEp"><code>gulp-watch</code></a> we can run tasks as files change.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'watch'</span>, [<span class="hljs-string">'serve'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Start listening on the LiveReload port</li>
+</ul></div></div><div class="code"><div class="wrapper">  livereload.listen();</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Set up a watcher on files to execute the proper tasks</li>
+</ul></div></div><div class="code"><div class="wrapper">  gulp.watch(paths.styles.watch, [<span class="hljs-string">'styles'</span>, <span class="hljs-string">'examples:styles'</span>]);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Watch JavaScript files and run the <code>scripts</code> task when they&#39;re changed</li>
+</ul></div></div><div class="code"><div class="wrapper">  gulp.watch(paths.scripts.src, [<span class="hljs-string">'scripts'</span>]);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Watch JavaScript files and run the <code>scripts</code> task when they&#39;re changed</li>
+</ul></div></div><div class="code"><div class="wrapper">  gulp.watch(paths.scripts.examplesSrcDir+<span class="hljs-string">'**/*.js'</span>, [<span class="hljs-string">'examples:scripts'</span>]);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>If the revision number changes for a file, re-inject them</li>
+</ul></div></div><div class="code"><div class="wrapper">  gulp.watch(<span class="hljs-string">'app/public/rev-manifest.json'</span>, [<span class="hljs-string">'dependencies:app'</span>]);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Whenever images are added or removed, run the <code>images</code> task</li>
+</ul></div></div><div class="code"><div class="wrapper">  gulp.watch(paths.images.watch, [<span class="hljs-string">'images'</span>]);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Automatically add/remove dependencies from Bower</li>
+</ul></div></div><div class="code"><div class="wrapper">  gulp.watch([<span class="hljs-string">'bower.json'</span>, <span class="hljs-string">'.bowerrc'</span>], [<span class="hljs-string">'dependencies:bower'</span>]);
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="create-a-local-server">Create a Local Server</h1>
+<p><a href="http://git.io/vT9ek"><code>gulp-nodemon</code></a> makes running a local dev server easy.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><strong>NOTE:</strong> We&#39;re running Node with the <code>--harmony</code> flag for ES6 support.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'serve'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{
+
+  nodemon({
+    script: <span class="hljs-string">'app/index.js'</span>,
+    execMap: {
+      js: <span class="hljs-string">"node --harmony"</span>
+    }
+  });
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="the-default-task">The Default Task</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>By creating a default task, we can get the app running just by typing <code>gulp</code>
+in the command line.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'default'</span>, [<span class="hljs-string">'watch'</span>]);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="tasks-for-the-demo-only">Tasks for the Demo Only</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="styles">Styles</h3>
+<p>So we can see individual example stylesheets, process them separately.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'examples:styles'</span>, [<span class="hljs-string">'examples:styles-compressed'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><a href="http://git.io/vTHZG"><code>postcss-discard-comments</code></a> is bundled in <code>cssnano</code>,
+so we only need it in this example because we&#39;re not using <code>cssnano</code>.</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">var</span> comments = <span class="hljs-built_in">require</span>(<span class="hljs-string">'postcss-discard-comments'</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Target the source CSS files</li>
+</ul></div></div><div class="code"><div class="wrapper">  gulp.src(paths.styles.examplesSrc)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Run our given <a href="http://git.io/vUBaL">PostCSS</a> processors (loaded above)</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(postcss(processors))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Remove comments in all output for easier scanning</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(postcss([ comments() ]))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Use <a href="http://git.io/vUB2I"><code>gulp-cssnext</code></a> to enable future CSS syntax</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(cssnext())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Save the new CSS file</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(gulp.dest(paths.styles.examplesDir));
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>To demonstrate what <code>cssnano</code> can do, we have a separate task.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'examples:styles-compressed'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Target the source CSS files</li>
+</ul></div></div><div class="code"><div class="wrapper">  gulp.src(paths.styles.examplesCompressedSrc)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Run our given <a href="http://git.io/vUBaL">PostCSS</a> processors (loaded above)</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(postcss(processors))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Use <a href="http://git.io/vUB2I"><code>gulp-cssnext</code></a> to enable future CSS syntax</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(cssnext())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><a href="http://git.io/vUBVI"><code>gulp-cssnano</code></a> optimizes CSS for smaller files</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(cssnano())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Save the new CSS file</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(gulp.dest(paths.styles.examplesDir));
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="scripts">Scripts</h3></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> exampleScriptTasks = [
+  <span class="hljs-string">'examples:scripts-lint'</span>,
+  <span class="hljs-string">'examples:scripts-concatenation'</span>,
+  <span class="hljs-string">'examples:scripts-minified'</span>
+];</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Example scripts are processed like the main app scripts with two exceptions:</p>
+<ol>
+<li>Files are not concatenated</li>
+<li>Files are not minified</li>
+</ol>
+<p>This makes it easier to look at the output and see what&#39;s happened.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'examples:scripts'</span>, exampleScriptTasks, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{
+
+  gulp.src(paths.scripts.examplesSrcDir + <span class="hljs-string">'**/*.js'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>For debugging, show which files are in the stream</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(using())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Lint the files for script warnings and errors</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(jshint())
+    .pipe(jshint.reporter(<span class="hljs-built_in">require</span>(<span class="hljs-string">'jshint-stylish'</span>)))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Validate code style using <a href="http://git.io/v8y5cA">Airbnb&#39;s styleguide</a></li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(jscs({
+      preset: <span class="hljs-string">'airbnb'</span>,
+      esnext: <span class="hljs-literal">true</span>
+    }))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>-- If we get an error, log it but don&#39;t crash</p></div></div><div class="code"><div class="wrapper">      .on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( error )</span> </span>{ <span class="hljs-built_in">console</span>.log(error.message); })</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Use Babel to transpile ES6 syntax to ES5 for browser support</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(babel())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Save the new JS file</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(gulp.dest(paths.scripts.examplesDir))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Reload the browser</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(livereload());
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>To demonstrate how JSHint works, this task only runs the linter.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'examples:scripts-lint'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{
+
+  gulp.src(paths.scripts.examplesSrcDir + <span class="hljs-string">'linting.js'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>For debugging, show which files are in the stream</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(using())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Lint the files for script warnings and errors</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(jshint())
+    .pipe(jshint.reporter(<span class="hljs-built_in">require</span>(<span class="hljs-string">'jshint-stylish'</span>)));
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>To demonstrate how concatenation works, this task only concatenates files.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'examples:scripts-concatenation'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{
+
+  gulp.src(paths.scripts.examplesSrcDir + <span class="hljs-string">'concatenation*.js'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>For debugging, show which files are in the stream</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(using())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Combine the files with <a href="http://git.io/vTdDL"><code>gulp-concat</code></a></li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(concat(<span class="hljs-string">'combined.js'</span>))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Save the new JS file</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(gulp.dest(paths.scripts.examplesDir));
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>To demonstrate minification, this task only compresses, mangles, &amp; renames.</p></div></div><div class="code"><div class="wrapper">gulp.task(<span class="hljs-string">'examples:scripts-minified'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(  )</span> </span>{
+
+  gulp.src(paths.scripts.examplesSrcDir + <span class="hljs-string">'minification.js'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>For debugging, show which files are in the stream</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(using())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Compress &amp; mangle the output with <a href="http://git.io/7unJbA"><code>gulp-uglify</code></a></li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(uglify())</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Add a suffix to the file to show that it&#39;s been minified</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(rename({ suffix: <span class="hljs-string">'.min'</span> }))</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Save the new JS file</li>
+</ul></div></div><div class="code"><div class="wrapper">    .pipe(gulp.dest(paths.scripts.examplesDir));
+
+});</div></div></div></div></body></html>

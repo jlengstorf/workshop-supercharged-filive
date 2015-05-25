@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="en"><head><title>app/source/styles/examples/extends</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../../"><meta name="groc-document-path" content="app/source/styles/examples/extends"><meta name="groc-project-path" content="app/source/styles/examples/extends.css"><meta name="groc-github-url" content="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow"><link rel="stylesheet" type="text/css" media="all" href="../../../../assets/style.css"><script type="text/javascript" src="../../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow/blob/master/app/source/styles/examples/extends.css">app/source/styles/examples/extends.css</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>Requires:</p>
+<ul>
+<li>plugins from previous examples</li>
+<li><a href="http://git.io/vUQes"><code>postcss-simple-extend</code></a> for extendable classes</li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="hljs-at_rule">@<span class="hljs-keyword">define-placeholder</span> pay-attention-to-me </span>{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> yellow</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> bold</span></span>;
+}
+
+<span class="hljs-class">.extends__paragraph--highlight</span> <span class="hljs-rules">{
+  @extend pay-attention-to-me;
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> solid black</span></span>;
+}</span>
+
+<span class="hljs-class">.extends__paragraph</span>&gt;<span class="hljs-tag">strong</span> <span class="hljs-rules">{
+  @extend pay-attention-to-me;
+  <span class="hljs-rule"><span class="hljs-attribute">border-bottom</span>:<span class="hljs-value"> <span class="hljs-number">2px</span> solid red</span></span>;
+}</span></div></div></div></div></body></html>

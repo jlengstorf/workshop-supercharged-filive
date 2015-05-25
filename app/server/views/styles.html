@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="en"><head><title>app/server/views/styles</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../"><meta name="groc-document-path" content="app/server/views/styles"><meta name="groc-project-path" content="app/server/views/styles.jade"><meta name="groc-github-url" content="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow/blob/master/app/server/views/styles.jade">app/server/views/styles.jade</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">extends ../layouts/default
+
+block title
+  title CSS Post-Processing <span class="hljs-keyword">and</span> Compression | <span class="hljs-comment">#{title}</span>
+
+block content
+  h1 CSS Post-Processing <span class="hljs-keyword">and</span> Compression
+  p.
+    Writing powerful, maintainable stylesheets <span class="hljs-keyword">is</span> tricky <span class="hljs-keyword">if</span> we're <span class="hljs-keyword">not</span> careful.
+  p.
+    Working <span class="hljs-function_start"><span class="hljs-keyword">on</span></span> stylesheets <span class="hljs-keyword">in</span> a team <span class="hljs-keyword">is</span> even trickier.
+  p.
+    With Gulp, we can plug <span class="hljs-keyword">in</span> several excellent tools <span class="hljs-keyword">for</span> CSS development,
+    which help us automate <span class="hljs-keyword">some</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> more cumbersome tasks, including adding
+    vendor prefixes, compressing output, adding high-res images <span class="hljs-keyword">where</span>
+    appropriate, <span class="hljs-keyword">and</span> more.</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  <span class="hljs-subst">-</span> <span class="hljs-built_in">var</span> title <span class="hljs-subst">=</span> <span class="hljs-string">"Nested Selectors"</span>;
+  <span class="hljs-subst">-</span> <span class="hljs-built_in">var</span> name <span class="hljs-subst">=</span> <span class="hljs-string">'nested'</span>;
+
+  <span class="hljs-built_in">.</span>example(<span class="hljs-built_in">data</span><span class="hljs-attribute">-name</span><span class="hljs-subst">=</span>title)
+    h2<span class="hljs-subst">=</span> title
+
+    p<span class="hljs-built_in">.
+      </span>Nested selectors (made popular <span class="hljs-keyword">by</span> CSS preprocessors like LESS <span class="hljs-literal">and</span> Sass)
+      add better legibility <span class="hljs-literal">and</span> a logical way <span class="hljs-keyword">to</span> <span class="hljs-keyword">group</span> related items<span class="hljs-built_in">.
+    </span>p Here<span class="hljs-string">'s the result:
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[0], '</span>scss<span class="hljs-string">', '</span><span class="hljs-literal">false</span><span class="hljs-string">')
+        include ../../source/styles/examples/nested-selectors.css
+      +tabbedBoxPanel(name, labels[1], '</span>css<span class="hljs-string">')
+        include ../../public/css/examples/nested-selectors.css
+
+</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - <span class="hljs-keyword">var</span> title = <span class="hljs-string">"Variables"</span>;
+  - <span class="hljs-keyword">var</span> name = 'variables';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      <span class="hljs-type">Variables</span> allow us to <span class="hljs-type">set</span> common values (like colors) <span class="hljs-keyword">in</span> one place,
+      which makes future maintenance a one-line change instead <span class="hljs-keyword">of</span> a grand
+      adventure into a tangle <span class="hljs-keyword">of</span> stylesheets.
+    p.
+      &lt;a href=<span class="hljs-string">"http://www.w3.org/TR/css-variables/"</span>&gt;<span class="hljs-type">CSS</span>-spec variables&lt;/a&gt;
+      are kind <span class="hljs-keyword">of</span> gnarly, though:
+    pre.language-scss
+      code.
+        /* <span class="hljs-type">All</span> variables have to be declared within :root to work. */
+        :root {
+          --color: <span class="hljs-comment">#FFFFFF;</span>
+        }
+
+        /* <span class="hljs-type">To</span> use a variable, we have to wrap it <span class="hljs-keyword">in</span> <span class="hljs-keyword">var</span>(). */
+        .foo {
+          background-color: <span class="hljs-keyword">var</span>( --color );
+        }
+    p.
+      <span class="hljs-type">To</span> make that a little easier to deal <span class="hljs-keyword">with</span>, we'll be <span class="hljs-keyword">using</span> <span class="hljs-type">Sass</span>-style
+      variables <span class="hljs-keyword">in</span> our stylesheets thanks to &lt;code&gt;postcss-simple-vars&lt;/code&gt;.
+    p <span class="hljs-type">Here</span>'s the <span class="hljs-literal">result</span>:
+
+    .example-<span class="hljs-literal">result</span>
+      .css-variables
+        p <span class="hljs-type">My</span> color was <span class="hljs-type">set</span> <span class="hljs-keyword">with</span> a variable!
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">0</span>], 'scss', '<span class="hljs-literal">false</span>')
+        <span class="hljs-keyword">include</span> ../../source/styles/examples/variables.css
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">1</span>], 'css')
+        <span class="hljs-keyword">include</span> ../../public/css/examples/variables.css</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - <span class="hljs-keyword">var</span> title = <span class="hljs-string">"Automatic Vendor Prefixes"</span>;
+  - <span class="hljs-keyword">var</span> name = 'autoprefixer';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      <span class="hljs-type">Autoprefixer</span> <span class="hljs-keyword">is</span> straight-up magic. <span class="hljs-type">Never</span> worry about vendor prefixes
+      again <span class="hljs-keyword">while</span> we code.
+
+    .vendor-prefixes.example-<span class="hljs-literal">result</span>
+      .vendor-prefixes__spinner
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">0</span>], 'scss', '<span class="hljs-literal">false</span>')
+        <span class="hljs-keyword">include</span> ../../source/styles/examples/autoprefix.css
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">1</span>], 'css')
+        <span class="hljs-keyword">include</span> ../../public/css/examples/autoprefix.css</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - <span class="hljs-keyword">var</span> title = <span class="hljs-string">"Color Functions"</span>;
+  - <span class="hljs-keyword">var</span> name = 'color';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      <span class="hljs-type">Using</span> <span class="hljs-comment">#[code color()] functions, we can modify colors quickly and easily.</span>
+
+    .color-blocks.example-<span class="hljs-literal">result</span>--patterned.show-class-names
+      .color-<span class="hljs-keyword">block</span>.default
+      .color-<span class="hljs-keyword">block</span>.alpha
+      .color-<span class="hljs-keyword">block</span>.grayscale
+      .color-<span class="hljs-keyword">block</span>.hue
+      .color-<span class="hljs-keyword">block</span>.brighter
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">0</span>], 'scss', '<span class="hljs-literal">false</span>')
+        <span class="hljs-keyword">include</span> ../../source/styles/examples/color-functions.css
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">1</span>], 'css')
+        <span class="hljs-keyword">include</span> ../../public/css/examples/color-functions.css</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - <span class="hljs-keyword">var</span> title = <span class="hljs-string">"Retina Background Display"</span>;
+  - <span class="hljs-keyword">var</span> name = 'retina';
+
+  .example--wide(data-name=title)
+    .big-background.example-<span class="hljs-literal">result</span>--full-width
+      h2= title
+
+      p.
+        <span class="hljs-type">With</span> <span class="hljs-comment">#[code postcss-at2x] we can automatically add #[code @2x] versions</span>
+        <span class="hljs-keyword">of</span> our <span class="hljs-type">CSS</span> background images.
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">0</span>], 'scss', '<span class="hljs-literal">false</span>')
+        <span class="hljs-keyword">include</span> ../../source/styles/examples/retina-background-display.css
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">1</span>], 'css')
+        <span class="hljs-keyword">include</span> ../../public/css/examples/retina-background-display.css</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - <span class="hljs-keyword">var</span> title = <span class="hljs-string">"Custom Selectors"</span>;
+  - <span class="hljs-keyword">var</span> name = 'custom-selectors';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      <span class="hljs-type">Custom</span> selectors allow a shortcut <span class="hljs-keyword">for</span> defining groups <span class="hljs-keyword">of</span> selectors under
+      a single reference <span class="hljs-keyword">for</span> quickly defining new properties.
+    p <span class="hljs-type">Here</span>'s the <span class="hljs-literal">result</span>:
+
+    .example-<span class="hljs-literal">result</span>.custom-selector
+      h3 I'm a <span class="hljs-type">Heading</span>
+      p <span class="hljs-type">This</span> paragraph <span class="hljs-keyword">is</span> right after a heading.
+        a(href=<span class="hljs-string">"#"</span>) <span class="hljs-type">And</span> a link!
+      p <span class="hljs-type">This</span> paragraph <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span>.
+      h4 I'm a <span class="hljs-type">Smaller</span> <span class="hljs-type">Heading</span>
+      p <span class="hljs-type">This</span> <span class="hljs-keyword">is</span> another paragraph.
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">0</span>], 'scss', '<span class="hljs-literal">false</span>')
+        <span class="hljs-keyword">include</span> ../../source/styles/examples/custom-selectors.css
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">1</span>], 'css')
+        <span class="hljs-keyword">include</span> ../../public/css/examples/custom-selectors.css</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - <span class="hljs-keyword">var</span> title = <span class="hljs-string">"Extendable Classes"</span>;
+  - <span class="hljs-keyword">var</span> name = 'extendable';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      <span class="hljs-type">An</span> extendable class <span class="hljs-keyword">is</span> a placeholder that defines reusable styles.
+    p.
+      <span class="hljs-type">They</span> aren't rendered <span class="hljs-keyword">in</span> the final <span class="hljs-type">CSS</span>, <span class="hljs-keyword">and</span> only show up <span class="hljs-keyword">when</span> they're
+      extended by a real selector.
+    p <span class="hljs-type">Here</span>'s the <span class="hljs-literal">result</span>:
+
+    .example-<span class="hljs-literal">result</span>--patterned.extends
+      .extends__paragraph <span class="hljs-type">This</span> <span class="hljs-keyword">is</span> some text.
+      .extends__paragraph--highlight <span class="hljs-type">This</span> <span class="hljs-keyword">is</span> some really important text.
+      .extends__paragraph <span class="hljs-type">This</span> <span class="hljs-keyword">is</span> some text.
+        strong <span class="hljs-type">This</span> text <span class="hljs-keyword">is</span> bold.
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">0</span>], 'scss', '<span class="hljs-literal">false</span>')
+        <span class="hljs-keyword">include</span> ../../source/styles/examples/extends.css
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">1</span>], 'css')
+        <span class="hljs-keyword">include</span> ../../public/css/examples/extends.css</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - <span class="hljs-keyword">var</span> title = <span class="hljs-string">"Mixins"</span>;
+  - <span class="hljs-keyword">var</span> name = 'mixins';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      <span class="hljs-type">Mixins</span> are a way to create a reusable <span class="hljs-keyword">block</span> <span class="hljs-keyword">of</span> <span class="hljs-type">CSS</span> that accepts
+      variable input.
+    p.
+      <span class="hljs-type">PostCSS</span> mixins are even more powerful than <span class="hljs-type">Sass</span> mixins because they
+      allow <span class="hljs-keyword">for</span> <span class="hljs-type">JavaScript</span>-based mixins — giving us a &lt;em&gt;lot&lt;/em&gt; more power.
+    p <span class="hljs-type">Here</span>'s the <span class="hljs-literal">result</span>:
+
+    .example-<span class="hljs-literal">result</span>--patterned.mixins
+      .icon.icon--twitter
+      .icon.icon--facebook
+      .icon.icon--gplus
+      .icon.icon--instagram
+      .icon.icon--youtube
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">0</span>], 'scss', '<span class="hljs-literal">false</span>')
+        <span class="hljs-keyword">include</span> ../../source/styles/examples/mixins.css
+      +tabbedBoxPanel(name, labels[<span class="hljs-number">1</span>], 'css')
+        <span class="hljs-keyword">include</span> ../../public/css/examples/mixins.css</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr></div></div><div class="code"><div class="wrapper">  - var title = <span class="hljs-string">"CSS Optimization"</span>;
+  - var <span class="hljs-property">name</span> = 'optimization';
+
+  .example(data-<span class="hljs-property">name</span>=title)
+    h2= title
+
+    p.
+      With cssnano, many optimizations <span class="hljs-keyword">to</span> our CSS, like stripping comments,
+      removing white <span class="hljs-constant">space</span>, <span class="hljs-keyword">and</span> choosing <span class="hljs-keyword">the</span> shortest color <span class="hljs-property">name</span> are done
+      automatically <span class="hljs-keyword">to</span> keep <span class="hljs-type">file</span> sizes small.
+
+    +tabbedBox(<span class="hljs-property">name</span>, labels)
+      +tabbedBoxPanel(<span class="hljs-property">name</span>, labels[<span class="hljs-number">0</span>], 'scss', '<span class="hljs-constant">false</span>')
+        include ../../source/styles/examples/compressed.css
+      +tabbedBoxPanel(<span class="hljs-property">name</span>, labels[<span class="hljs-number">1</span>], 'css')
+        include ../../public/css/examples/compressed.css</div></div></div></div></body></html>

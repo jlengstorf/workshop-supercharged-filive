@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><meta name="groc-github-url" content="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/jlengstorf/workshop-supercharge-your-front-end-workflow/blob/master/README.md">README.md</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="supercharge-your-front-end-workflow">Supercharge Your Front-End Workflow</h1>
+<p>If you&#39;re going to be a great front-end developer, you need to make sure that
+the little stuff is taken care of. The details make the difference between okay
+work and great work.</p>
+<p>However, it&#39;s hard to do consistently because it&#39;s — well — <em>boring</em>.</p>
+<p>I want to let you in on a little secret: I don&#39;t take care of the little
+details in my work. I&#39;m lazy; I&#39;d rather be working on something fun than
+compressing CSS output or checking that my JavaScript conforms to the style
+guide requirements.</p>
+<p>However, it all still gets done. And better than I could do it myself,
+honestly.</p>
+<p>Because I have friggin&#39; <em>robots</em> to do it for me.</p>
+<p>In this workshop, I&#39;ll show you how I built a small army of robots to do my
+bidding, so that I could focus on the fun stuff.</p>
+<p>The tools we&#39;ll be using have scary names, like <em>task runners</em> and
+<em>transpilers</em> and <em>linters</em>, but don&#39;t worry — you don&#39;t have to be a hardcore
+back-end developer to set this up. More importantly, once you&#39;ve built it
+once, you can reuse it on future projects.</p>
+<p><strong>Build once; <em>win forever.</em></strong></p>
+<p>Whether you&#39;re a designer or a developer, these tools don&#39;t need to be scary
+and can save you <em>hours</em> in the long run.</p>
+<h2 id="quick-start">Quick Start</h2>
+<p>For a quick look at what the completed app looks like, check out the <code>complete</code>
+branch. The source is also thoroughly commented, and
+<a href="https://github.com/nevir/groc">Groc</a> was used to generate
+<a href="http://git.io/vff2n">the documentation</a>.</p>
+<h2 id="what-you39ll-learn">What You&#39;ll Learn</h2>
+<ul>
+<li>Task automation, including:<ul>
+<li>Running a local development server</li>
+<li>Watching files for changes and automatically running tasks</li>
+<li>Reloading the browser after changes are made</li>
+<li>Automatically injecting app resources</li>
+<li>Automatically injecting dependencies</li>
+<li>Removing old and unused files</li>
+</ul>
+</li>
+<li>CSS Post-Processing and Optimization<ul>
+<li>Understanding nested selectors</li>
+<li>Using CSS variables</li>
+<li>Automatically adding vendor prefixes where needed</li>
+<li>Manipulating color with CSS functions</li>
+<li>Inserting high-resolution background images automatically</li>
+<li>Using custom selectors</li>
+<li>Creating extendable placeholder classes</li>
+<li>Building and using mixins</li>
+<li>Optimizing CSS output for performance</li>
+</ul>
+</li>
+<li>JavaScript Linting, Processing, and Optimization<ul>
+<li>Linting scripts for warnings and errors</li>
+<li>Checking adherence to a coding style guide (and fixing issues!)</li>
+<li>Implementing ES6 features <em>today</em></li>
+<li>Concatenating scripts to save on HTTP requests</li>
+<li>Minifying scripts for faster loading</li>
+</ul>
+</li>
+<li>Image Optimization<ul>
+<li>Compressing JPG images for smaller files and faster, progressive loading</li>
+<li>Optimizing PNG images to decrease file size with no visible quality loss</li>
+</ul>
+</li>
+</ul>
+<p>Throughout this workshop we&#39;ll be using tools that start out sounding scary —
+<em>package managers</em> like Bower and NPM; <em>post-processors</em> and <em>transpilers</em> like PostCSS and Babel, respectively — but we&#39;ll quickly see that using</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Node 0.12.0 — <a href="https://nodejs.org/download/">installation instructions</a></li>
+<li>Bower 1.4.1 — <a href="http://bower.io/#install-bower">installation instructions</a></li>
+<li>Gulp 3.8.11 — <a href="http://git.io/vTpk5">installation instructions</a></li>
+</ul>
+<p><strong>NOTE:</strong> This app will most likely work with older versions. This is just what I was using at the time I built this demo.</p>
+<h3 id="full-list-of-node-packages-used-in-this-workshop">Full List of Node Packages Used in This Workshop</h3>
+<p>There&#39;s probably no need to worry about versions unless something is
+inexplicably breaking and you&#39;re not sure why. If you have an issue that you
+think may have been caused by the package&#39;s version, please see <code>package.json</code>
+for versions used in this workshop.</p>
+<h4 id="production-dependencies">Production Dependencies</h4>
+<p>Packages installed with:</p>
+<pre><code>npm install --save package</code></pre>
+<ul>
+<li><a href="https://www.npmjs.com/package/bower"><code>bower</code></a></li>
+<li><a href="https://www.npmjs.com/package/express"><code>express</code></a></li>
+<li><a href="https://www.npmjs.com/package/jade"><code>jade</code></a></li>
+<li><a href="https://www.npmjs.com/package/morgan"><code>morgan</code></a></li>
+</ul>
+<h4 id="development-dependencies">Development Dependencies</h4>
+<p>Packages installed with:</p>
+<pre><code>npm install --save-dev package</code></pre>
+<ul>
+<li><a href="https://www.npmjs.com/package/del"><code>del</code></a></li>
+<li><a href="https://www.npmjs.com/package/doiuse"><code>doiuse</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp"><code>gulp</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-babel"><code>gulp-babel</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-changed"><code>gulp-changed</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-concat"><code>gulp-concat</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-cssnano"><code>gulp-cssnano</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-cssnext"><code>gulp-cssnext</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-imagemin"><code>gulp-imagemin</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-inject"><code>gulp-inject</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-jscs"><code>gulp-jscs</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-jshint"><code>gulp-jshint</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-livereload"><code>gulp-livereload</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-nodemon"><code>gulp-nodemon</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-postcss"><code>gulp-postcss</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-rename"><code>gulp-rename</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-rev"><code>gulp-rev</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-rev-replace"><code>gulp-rev-replace</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-sourcemaps"><code>gulp-sourcemaps</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-uglify"><code>gulp-uglify</code></a></li>
+<li><a href="https://www.npmjs.com/package/gulp-using"><code>gulp-using</code></a></li>
+<li><a href="https://www.npmjs.com/package/imagemin-pngquant"><code>imagemin-pngquant</code></a></li>
+<li><a href="https://www.npmjs.com/package/jshint-stylish"><code>jshint-stylish</code></a></li>
+<li><a href="https://www.npmjs.com/package/lazypipe"><code>lazypipe</code></a></li>
+<li><a href="https://www.npmjs.com/package/matchdep"><code>matchdep</code></a></li>
+<li><a href="https://www.npmjs.com/package/postcss-at2x"><code>postcss-at2x</code></a></li>
+<li><a href="https://www.npmjs.com/package/postcss-discard-comments"><code>postcss-discard-comments</code></a></li>
+<li><a href="https://www.npmjs.com/package/postcss-import"><code>postcss-import</code></a></li>
+<li><a href="https://www.npmjs.com/package/postcss-mixins"><code>postcss-mixins</code></a></li>
+<li><a href="https://www.npmjs.com/package/postcss-nested"><code>postcss-nested</code></a></li>
+<li><a href="https://www.npmjs.com/package/postcss-simple-extend"><code>postcss-simple-extend</code></a></li>
+<li><a href="https://www.npmjs.com/package/postcss-simple-vars"><code>postcss-simple-vars</code></a></li>
+<li><a href="https://www.npmjs.com/package/wiredep"><code>wiredep</code></a></li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>To get this up and running on your computer, start by
+cloning the repo:</p>
+<pre><code>cd path/to/where/you/want/to/install/
+git clone git@github.com:jlengstorf/workshop-supercharged-filive.git</code></pre>
+<p>Next, move into the cloned project and install the
+required dependencies.</p>
+<pre><code>cd ../workshop-supercharged-filive
+npm install</code></pre>
+<p><strong>NOTE:</strong> <a href="http://bower.io/">Bower</a> components are automatically installed as a
+<a href="https://docs.npmjs.com/misc/scripts"><code>postinstall</code> script</a>.</p>
+<h2 id="credits">Credits</h2>
+<p><a href="http://lengstorf.com/">Jason Lengstorf</a> built this app with love and bear hugs.</p>
+<h2 id="license">License</h2>
+<p>The MIT License (MIT)</p>
+<p>Copyright (c) 2015 Jason Lengstorf</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p></div></div></div></div></body></html>
