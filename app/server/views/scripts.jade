@@ -1,0 +1,140 @@
+extends ../layouts/default
+
+block title
+  title JavaScript Linting, Processing, and Optimization | #{title}
+
+block content
+  h1 JavaScript Linting, Processing, and Optimization
+  p.
+    Good JavaScript needs to be error-free, consistent, and optimized for
+    reliable execution on popular browsers — all while being streamlined for
+    loading speed.
+  p.
+    To make all this a little less daunting, Gulp can take care of the
+    particularly boring tasks.
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Linting";
+  - var name = 'linting';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      To ensure that our code doesn't have any obvious bugs, we can (and
+      probably should) use a JavaScript linter such as
+      #[a(href="http://jslint.com/") JSLint] or
+      #[a(href="http://jslint.com/") JSHint]. In this example, we're using
+      #[a(href="http://git.io/vTHKZ") #[code gulp-jshint]].
+    p.
+      When a task using JSHint runs, warnings and errors will be output in the
+      console with helpful info that makes them easy to locate and fix.
+    p Have a look at this example file and the resultant console output.
+
+    +tabbedBox(name, ['linting.js', 'console'])
+      +tabbedBoxPanel(name, 'linting.js', 'javascript', 'false')
+        include ../../source/scripts/examples/linting.js
+      +tabbedBoxPanel(name, 'console', 'javascript').
+        /supercharged-filive/httpdocs/app/source/scripts/examples/linting.js
+          line 5  col 7   'i' is not defined.
+          line 5  col 14  'i' is not defined.
+          line 5  col 22  'i' is not defined.
+          line 6  col 38  'i' is not defined.
+
+          ⚠  4 warnings
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Style Guide Adherence";
+  - var name = 'style-guide';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      In addition to linting for errors, you can use JSCS, which allows you to
+      check your code against a style guide. You can choose from an existing
+      style guide, like Google, Airbnb, or jQuery, or you can build your own
+      using a #[code .jscsrc] file.
+    p Have a look at this example file and the resultant console output.
+
+    +tabbedBox(name, ['style-guide.js', 'console'])
+      +tabbedBoxPanel(name, 'style-guide.js', 'javascript', 'false')
+        include ../../source/scripts/examples/style-guide.js
+      +tabbedBoxPanel(name, 'console', 'javascript').
+        One space required after "while" keyword at style-guide.js :
+             5 |
+             6 |  // Needs a space between `while` and `(`
+             7 |  while(i < 10) {
+        ---------------^
+             8 |    console.log('The count is now' + i++);
+             9 |  }
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "ES6 Support";
+  - var name = 'esnext';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      #[a(href="http://git.io/HSwS2Q") EcmaScript 6] (ES6 for short) is coming,
+      and soon. You can start using it now with by using a
+      #[a(href="http://bit.ly/1F2iiS8") transpiler] which converts ES6 syntax to
+      ES5, which #[a(href="http://git.io/vTHQ8") works on most browsers].
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[0], 'javascript', 'false')
+        include ../../source/scripts/examples/esnext.js
+      +tabbedBoxPanel(name, labels[1], 'javascript')
+        include ../../public/js/examples/esnext.js
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Concatenation";
+  - var name = 'concatenation';
+  - var concatLabels = ['file1.js', 'file2.js', 'combined.js'];
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      #[a(href="http://git.io/HSwS2Q") EcmaScript 6] (ES6 for short) is coming,
+      and soon. You can start using it now with by using a
+      #[a(href="http://bit.ly/1F2iiS8") transpiler] which converts ES6 syntax to
+      ES5, which #[a(href="http://git.io/vTHQ8") works on most browsers].
+
+    +tabbedBox(name, concatLabels)
+      +tabbedBoxPanel(name, concatLabels[0], 'javascript', 'false')
+        include ../../source/scripts/examples/concatenation1.js
+      +tabbedBoxPanel(name, concatLabels[1], 'javascript')
+        include ../../source/scripts/examples/concatenation2.js
+      +tabbedBoxPanel(name, concatLabels[2], 'javascript')
+        include ../../public/js/examples/combined.js
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Minification";
+  - var name = 'minified';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      #[a(href="http://git.io/HSwS2Q") EcmaScript 6] (ES6 for short) is coming,
+      and soon. You can start using it now with by using a
+      #[a(href="http://bit.ly/1F2iiS8") transpiler] which converts ES6 syntax to
+      ES5, which #[a(href="http://git.io/vTHQ8") works on most browsers].
+
+    +tabbedBox(name, labels)
+      +tabbedBoxPanel(name, labels[0], 'javascript', 'false')
+        include ../../source/scripts/examples/minification.js
+      +tabbedBoxPanel(name, labels[1], 'javascript')
+        include ../../public/js/examples/minification.min.js
