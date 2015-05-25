@@ -1,0 +1,38 @@
+.mixins{
+  display:-webkit-box;
+  display:-webkit-flex;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-box-pack:justify;
+  -webkit-justify-content:space-between;
+      -ms-flex-pack:justify;
+          justify-content:space-between;
+}
+
+.icon{
+    -webkit-box-flex:1;
+    -webkit-flex:1;
+        -ms-flex:1;
+            flex:1;
+    width:40px;
+    height:40px;
+    margin-top:0;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:contain;
+}
+.icon--twitter{
+  background-image:url(/images/social/twitter.svg);
+}
+.icon--facebook{
+  background-image:url(/images/social/facebook.svg);
+}
+.icon--gplus{
+  background-image:url(/images/social/gplus.svg);
+}
+.icon--instagram{
+  background-image:url(/images/social/instagram.svg);
+}
+.icon--youtube{
+  background-image:url(/images/social/youtube.svg);
+}

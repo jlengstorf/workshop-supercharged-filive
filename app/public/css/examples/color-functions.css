@@ -1,0 +1,44 @@
+.color-blocks{
+  display:-webkit-box;
+  display:-webkit-flex;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-box-pack:justify;
+  -webkit-justify-content:space-between;
+      -ms-flex-pack:justify;
+          justify-content:space-between;
+}
+
+.color-block{
+  position:relative;
+  -webkit-box-flex:1;
+  -webkit-flex:1 100px;
+      -ms-flex:1 100px;
+          flex:1 100px;
+  height:100px;
+  width:100px;
+  max-width:100px;
+  margin:0;
+  border:1px solid rgb(0, 0, 0);
+}
+
+.color-block.default{
+  background-color:#33c;
+}
+
+.color-block.alpha{
+  background-color:#3333CC;
+  background-color:rgba(51, 51, 204, 0.5);
+}
+
+.color-block.grayscale{
+  background-color:rgb(128, 128, 128);
+}
+
+.color-block.hue{
+  background-color:rgb(204, 204, 51);
+}
+
+.color-block.brighter{
+  background-color:rgb(77, 77, 255);
+}

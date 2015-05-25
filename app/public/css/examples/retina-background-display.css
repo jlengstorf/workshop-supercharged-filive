@@ -1,0 +1,18 @@
+.big-background{
+  min-height:450px;
+  background-image:url(/images/retina-background-display.jpg);
+  background-size:cover;
+}
+
+.big-background h2, .big-background p{
+  color:#fff;
+  text-shadow:1px 1px 0 #333;
+}
+
+@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx){
+
+  .big-background{
+    background-image:url(/images/retina-background-display@2x.jpg);
+    background-size:cover;
+  }
+}

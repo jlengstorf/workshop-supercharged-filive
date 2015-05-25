@@ -1,0 +1,32 @@
+.image-holder{
+  display:-webkit-box;
+  display:-webkit-flex;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-justify-content:space-around;
+      -ms-flex-pack:distribute;
+          justify-content:space-around;
+}
+
+.image{
+  -webkit-box-flex:1;
+  -webkit-flex:1 250px;
+      -ms-flex:1 250px;
+          flex:1 250px;
+  position:relative;
+  max-width:250px;
+  max-height:250px;
+  margin-top:0;
+}
+
+.image img{
+  max-width:100%;
+  height:auto;
+}
+
+.image:after{
+  content:'File Size: ' attr(data-size);
+  left:0;
+  width:100%;
+  text-align:center
+}

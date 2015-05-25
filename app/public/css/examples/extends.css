@@ -1,0 +1,13 @@
+.extends__paragraph--highlight,
+.extends__paragraph>strong{
+  background:yellow;
+  font-weight:bold;
+}
+
+.extends__paragraph--highlight{
+  border:1px solid black;
+}
+
+.extends__paragraph>strong{
+  border-bottom:2px solid red;
+}

@@ -1,0 +1,32 @@
+.custom-selector h1,
+.custom-selector h2,
+.custom-selector h3,
+.custom-selector h4,
+.custom-selector h5,
+.custom-selector h6{
+
+    color:red;
+}
+
+.custom-selector h1+p,
+.custom-selector h2+p,
+.custom-selector h3+p,
+.custom-selector h4+p,
+.custom-selector h5+p,
+.custom-selector h6+p{
+
+    background:yellow;
+}
+
+.custom-selector a:active,
+.custom-selector a:hover,
+.custom-selector a:focus{
+
+    background:red;
+
+    color:white;
+
+    outline:none;
+
+    text-decoration:none;
+}
