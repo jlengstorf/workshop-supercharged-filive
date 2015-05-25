@@ -1,0 +1,58 @@
+extends ../layouts/default
+
+block title
+  title Optimize Images | #{title}
+
+block content
+  h1 Image Optimization
+  p.
+    To keep our pages loading quickly, we should be paying attention to the
+    sizes of our images. Using Gulp, we can quickly automate a lot of our image
+    compression with just a few lines of code.
+
+
+  //- -------------------------------------------------------------------------
+
+  - var title = "Compressed Images";
+  - var name = 'compressed-images';
+
+  .example(data-name=title)
+    h2= title
+
+    p.
+      With the plugin #[code gulp-imagemin] our images can be automatically
+      compressed.
+
+    .image-holder.example-result--patterned.show-class-names
+      .image(data-size="231 KB")
+        img(src="/images/compressed-images_uncompressed.png" alt="")
+      .image(data-size="35 KB")
+        img(src="/images/compressed-images_compressed.png" alt="")
+
+    pre.language-javascript
+      code.
+        // } ## Compress images using `gulp-imagemin` for smaller file sizes
+        gulp.task('images', function(  ) {
+
+          // } PNGQuant is better at PNG compression (the output is similar to TinyPNG).
+          var pngquant = require('imagemin-pngquant');
+
+          // } - Target uncompressed image files
+          gulp.src(paths.images.src)
+
+            // } - Only compress files that are new or have changed
+            .pipe(changed(paths.images.destDir))
+
+            // } - For debugging only: show which files are being processed
+            .pipe(using())
+
+            // } - Compress the images
+            .pipe(imagemin({
+              progressive: true,
+              use: [ pngquant() ]
+            }))
+
+            // } - Save the compressed images
+            .pipe(gulp.dest(paths.images.destDir));
+
+        });
