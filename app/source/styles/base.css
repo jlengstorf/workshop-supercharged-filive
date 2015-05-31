@@ -216,6 +216,47 @@ body {
 
 
 /*
+ * ### Style sections for the home page TOC
+ *
+ * The home page has short descriptions of the other pages on this site; add
+ * styles to make 'em look nice.
+ */
+.section {
+  @extend full-width;
+  border-top: 1px solid color( $backgroundColor blackness(+ 10%) );
+
+  + .section {
+    margin-top: 0;
+  }
+
+  &__headline a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &__link {
+    display: inline-block;
+    padding: calc( $baseVerticalGrid / 2 );
+    background-color: $textColor;
+    border-radius: calc( $baseVerticalGrid / 4 );
+    color: $backgroundColor;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    &::after {
+      content: ' →';
+    }
+
+    &:--active-link {
+      background: color( $textColor lightness(+ 10%) );
+    }
+  }
+}
+
+
+/*
  * ### Define what example containers look like
  *
  * The example container has two flavors: plain and full-width. To avoid
@@ -240,7 +281,7 @@ body {
 /* For all examples, show the name of the example using a `rel` attribute. */
 .example,.example--wide {
   &:before {
-    color: color( $backgroundColor lightness(-20%) );
+    color: color( $backgroundColor lightness(- 20%) );
     content: 'Example: ' attr(data-name);
     display: block;
     font-size: 7px;
