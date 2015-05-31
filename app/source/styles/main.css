@@ -8,6 +8,8 @@
  * TODO: Break these out into components
  */
 
+@charset 'utf-8';
+
 
 /*
  * ## Variables
@@ -30,6 +32,7 @@ $baseVerticalGrid: 20px;
  * - Custom selectors
  */
 @custom-selector --heading h1,h2,h3,h4,h5,h6;
+@custom-selector :--active-link :active,:focus,:hover;
 
 
 /*
