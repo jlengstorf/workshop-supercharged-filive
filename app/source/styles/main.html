@@ -2,7 +2,7 @@
 <p>This file contains references to all our component stylesheets. Using
 PostCSS, the <code>@import</code>-ed stylesheets will be inlined and processed into a
 single, minified stylesheet for production.</p>
-<p>TODO: Break these out into components</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="variables">Variables</h2>
+<p>TODO: Break these out into components</p></div></div><div class="code"><div class="wrapper"><span class="hljs-at_rule">@<span class="hljs-keyword">charset</span> <span class="hljs-string">'utf-8'</span></span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="variables">Variables</h2>
 <p>Requires <code>postcss-simple-vars</code></p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
 <li>Colors</li>
 </ul></div></div><div class="code"><div class="wrapper">$<span class="hljs-rule"><span class="hljs-attribute">backgroundColor</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#fafafc</span></span></span>;
@@ -10,7 +10,8 @@ $<span class="hljs-rule"><span class="hljs-attribute">textColor</span>:<span cla
 <li>Measurements</li>
 </ul></div></div><div class="code"><div class="wrapper">$<span class="hljs-rule"><span class="hljs-attribute">baseVerticalGrid</span>:<span class="hljs-value"> <span class="hljs-number">20px</span></span></span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
 <li>Custom selectors</li>
-</ul></div></div><div class="code"><div class="wrapper"><span class="hljs-at_rule">@<span class="hljs-keyword">custom-selector</span> --heading h1,h2,h3,h4,h5,h6</span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="include-required-files">Include Required Files</h2>
+</ul></div></div><div class="code"><div class="wrapper"><span class="hljs-at_rule">@<span class="hljs-keyword">custom-selector</span> --heading h1,h2,h3,h4,h5,h6</span>;
+<span class="hljs-at_rule">@<span class="hljs-keyword">custom-selector</span> :--active-link :active,:focus,:hover</span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="include-required-files">Include Required Files</h2>
 <p>These external files are all included inline to help us stay organized
 without requiring lots of extra HTTP requests.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
 <li>Placeholder selectors to give us extendable styles.</li>

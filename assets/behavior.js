@@ -942,6 +942,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                               "type": "heading",
                               "data": {
                                 "level": 3,
+                                "title": "Style sections for the home page TOC",
+                                "slug": "style-sections-for-the-home-page-toc"
+                              },
+                              "depth": 3
+                            }, {
+                              "type": "heading",
+                              "data": {
+                                "level": 3,
                                 "title": "Define what example containers look like",
                                 "slug": "define-what-example-containers-look-like"
                               },
@@ -1034,6 +1042,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                             "level": 3,
                             "title": "Site footer",
                             "slug": "site-footer"
+                          },
+                          "depth": 3
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 3,
+                            "title": "Style sections for the home page TOC",
+                            "slug": "style-sections-for-the-home-page-toc"
                           },
                           "depth": 3
                         }, {
