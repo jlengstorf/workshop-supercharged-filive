@@ -132,11 +132,14 @@ var lazypipe = require('lazypipe');
  */
 function addFileRevision( dest ) {
 
+  var sourceRoot = dest.indexOf('js')!==-1 ? '/scripts/' : '/source/';
+  console.log(sourceRoot);
+
   return lazypipe()
 
     .pipe(rev)
 
-    .pipe(sourcemaps.write, '../maps')
+    .pipe(sourcemaps.write, '../maps', { sourceRoot: sourceRoot })
 
     .pipe(gulp.dest, dest)
 
